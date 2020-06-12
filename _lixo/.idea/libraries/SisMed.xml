@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SisMed">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/SisMed.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
