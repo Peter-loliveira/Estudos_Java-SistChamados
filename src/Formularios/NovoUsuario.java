@@ -210,7 +210,7 @@ public class NovoUsuario extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         PreencheTabela();
-        if(Dao.checaTabeleVazia() == 0){
+        if(Dao.checaTabelaVazia() == 0){
             
         }
     }//GEN-LAST:event_formWindowOpened

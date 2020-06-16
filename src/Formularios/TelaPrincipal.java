@@ -149,7 +149,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 imCadastros.setEnabled(true);
                 imClientes.setEnabled(true);
                 imCChamados.setEnabled(true);
-                TituloTela = "Sistema de Chamados - Usuário:" + DadosLogados[0] + ". Nivel: ADMINISTRADOR ";
+                TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: ADMINISTRADOR ";
                 break;
             case "2":
                 MenuAdm.setEnabled(false);
@@ -158,7 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 imCadastros.setEnabled(true);
                 imClientes.setEnabled(true);
                 imCChamados.setEnabled(true);
-                TituloTela = "Sistema de Chamados - Usuário:" + DadosLogados[0] + ". Nivel: GERENTE ";
+                TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: GERENTE ";
                 break;
             case "3":
                 MenuAdm.setEnabled(false);
@@ -167,7 +167,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 imCadastros.setEnabled(true);
                 imClientes.setEnabled(false);
                 imCChamados.setEnabled(true);
-                TituloTela = "Sistema de Chamados - Usuário:" + DadosLogados[0] + ". Nivel: TÉCNICO ";
+                TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: TÉCNICO ";
                 break;
             default:
                 break;

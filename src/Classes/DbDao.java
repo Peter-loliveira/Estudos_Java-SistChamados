@@ -234,6 +234,7 @@ public class DbDao {
     }
 
 // </editor-fold>
+    
 // <editor-fold defaultstate="collapsed" desc="Métodos UPDATE">
     public void GravaUsuarioLogado(String Nivel, String Nome) {
         conectar();
@@ -255,7 +256,7 @@ public class DbDao {
 
 // <editor-fold defaultstate="collapsed" desc="Métodos EXTRAS no Banco">
 //############################# UPDATES ###################################
-    public int checaTabeleVazia() {
+    public int checaTabelaVazia() {
         try {
             conectar();
             String sql = "SELECT COUNT(ID) FROM users;";

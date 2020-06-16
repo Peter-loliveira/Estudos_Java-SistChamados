@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Formularios;
 
 import javax.swing.JOptionPane;
 
-//telas Importadas
 import Classes.DbDao;
 
 import java.sql.Connection;
@@ -17,10 +11,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author peter
- */
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -145,31 +135,18 @@ public class Login extends javax.swing.JFrame {
         System.exit(0);
     }
 
-    public int PerfilUsuario;
-
-    public int getPerfilUsuario() {
-        return PerfilUsuario;
-    }
-
-
     private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
-        if (Dao.checaTabeleVazia() == 0) {
-            String mensagem = "Usuario não localizado!";
+        String mensagem;
+        if ((InpUsuario.getText().length() == 0) || (InpSenha.getText().length() == 0)) {
+            mensagem = "<html><h3>Ambos os campos são <u>OBRIGATÓRIOS</u></h3></html>";
             JOptionPane.showMessageDialog(null, mensagem);
-
         } else {
-            String mensagem;
-            if ((InpUsuario.getText().length() == 0) || (InpSenha.getText().length() == 0)) {
-                mensagem = "<html><h3>Ambos os campos são <u>OBRIGATÓRIOS</u></h3></html>";
-                JOptionPane.showMessageDialog(null, mensagem);
-            } else {
-                RealizarLogin();
-            }
+            RealizarLogin();
         }
     }//GEN-LAST:event_btLogarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if (Dao.checaTabeleVazia() == 0) {
+        if (Dao.checaTabelaVazia() == 0) {
             JOptionPane.showMessageDialog(null, "A tabela de Usuários está VAZIA. Crei um Usuário ADM");
             NovoUsuario novoUsuario = new NovoUsuario();
             AddUsuarios();
@@ -223,42 +200,68 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     DbDao Dao = new DbDao();
 
+//    Metodo chamado Após o sistema verificar que 
+//    NÃO EXISTEM DADOS NA TABELA DE USUARIO
     private void AddUsuarios() {
         NovoUsuario novoUsuario = new NovoUsuario();
         novoUsuario.setVisible(true);
     }
 
+//    Metodo para realizar o login
     private void RealizarLogin() {
         Dao.conectar();
         Connection conn = Dao.getConn();
-        String sql = "SELECT Senha, Nivel FROM users WHERE Nome = \"" + InpUsuario.getText() + "\"";
+        String sql;
+
+// <editor-fold defaultstate="collapsed" desc="Checa se o usurio digitado CONTA na base de dados">        
+
+        sql = "SELECT COUNT(ID) FROM users WHERE Nome = \"" + InpUsuario.getText() + "\"";
+        PreparedStatement stmt;
+        ResultSet ResultadoLogin;
+        int RegistrosEncontrados = 0;
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);;
-            ResultSet ResultadoLogin = stmt.executeQuery();
-
+            stmt = conn.prepareStatement(sql);
+            ResultadoLogin = stmt.executeQuery();
             ResultadoLogin.next();
-            // Captura a senha gravada no banco para Testar no Login
-            String Senha = ResultadoLogin.getString("Senha");
-
-            // Captura ddos para serem gravados no metodo GravaUsuarioLogado
-            String Nivel = ResultadoLogin.getString("Nivel");
-            String Nome = InpUsuario.getText();
-
-            Dao.Desconectar();
-            //Verifica se a senha digitada confere com a gravada no banco
-            if (Senha.equals(InpSenha.getText())) {
-
-                Dao.GravaUsuarioLogado(Nivel, Nome);
-                TelaPrincipal telaPrincipal = new TelaPrincipal();
-                telaPrincipal.setVisible(true);
-                this.setVisible(false);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario / Senha Não conferem!");
-            }
+            RegistrosEncontrados = Integer.parseInt(ResultadoLogin.getString(1));
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        
+        if (RegistrosEncontrados == 0) {
+            JOptionPane.showMessageDialog(this, "usuario não consta na base de dados!");
+// </editor-fold>  
 
+        } else {
+
+            sql = "SELECT Senha, Nivel, Nome FROM users WHERE Nome = \"" + InpUsuario.getText() + "\"";
+            try {
+                stmt = conn.prepareStatement(sql);
+                ResultadoLogin = stmt.executeQuery();
+                ResultadoLogin.next();
+
+                // Captura a senha gravada no banco para Testar no Login
+                String Senha = ResultadoLogin.getString("Senha");
+
+                // Captura ddos para serem gravados no metodo GravaUsuarioLogado
+                String Nivel = ResultadoLogin.getString("Nivel");
+                String Nome = ResultadoLogin.getString("Nome");
+
+                Dao.Desconectar();
+                //Verifica se a senha digitada confere com a gravada no banco
+                if (Senha.equals(InpSenha.getText()) && Nome.equals(InpUsuario.getText())) {
+
+                    Dao.GravaUsuarioLogado(Nivel, Nome);
+                    TelaPrincipal telaPrincipal = new TelaPrincipal();
+                    telaPrincipal.setVisible(true);
+                    this.setVisible(false);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario / Senha Não conferem!");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
