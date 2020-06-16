@@ -7,10 +7,15 @@ package Formularios;
 
 import javax.swing.JOptionPane;
 
-
-
 //telas Importadas
-import Formularios.StatusChamados;
+import Classes.DbDao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +27,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+//        this.PerfilUsuario = 0;
         initComponents();
     }
 
@@ -42,12 +48,16 @@ public class Login extends javax.swing.JFrame {
         btSair = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btLogar = new javax.swing.JButton();
-        btNovoUser = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SC");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Usuário");
@@ -81,15 +91,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btNovoUser.setBackground(new java.awt.Color(204, 204, 204));
-        btNovoUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btNovoUser.setText("Criar novo Usuario");
-        btNovoUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNovoUserActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +114,6 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(116, 116, 116))
-            .addComponent(btNovoUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,47 +132,49 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btNovoUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        System.exit(WIDTH);
-    }//GEN-LAST:event_btSairActionPerformed
+    Users TelaCadUsuarios = new Users();
 
-//    public Connection getConnection() {
-//        String url = "jdbc:mysql://localhost:3306/dbchamados";
-//        try {
-//            return (Connection) DriverManager.getConnection(url, "root", "");
-//        } catch (SQLException e) {
-////        throw new RuntimeException(e);
-//            System.out.println(e);
-//        }
-////        System.out.println("CONECTADO");
-//        return null;
-//    }
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
+
+    public int PerfilUsuario;
+
+    public int getPerfilUsuario() {
+        return PerfilUsuario;
+    }
+
 
     private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
-        // TODO add your handling code here:
-        String mensagem;
-        if ((InpUsuario.getText().length() == 0) || (InpSenha.getText().length() == 0)) {
-            mensagem = "<html><h3>Ambos os campos são <u>OBRIGATÓRIOS</u></h3></html>";
+        if (Dao.checaTabeleVazia() == 0) {
+            String mensagem = "Usuario não localizado!";
             JOptionPane.showMessageDialog(null, mensagem);
-            
+
         } else {
-            StatusChamados Status = new StatusChamados();
-            Status.setVisible(true);
+            String mensagem;
+            if ((InpUsuario.getText().length() == 0) || (InpSenha.getText().length() == 0)) {
+                mensagem = "<html><h3>Ambos os campos são <u>OBRIGATÓRIOS</u></h3></html>";
+                JOptionPane.showMessageDialog(null, mensagem);
+            } else {
+                RealizarLogin();
+            }
         }
     }//GEN-LAST:event_btLogarActionPerformed
 
-    private void btNovoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btNovoUserActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if (Dao.checaTabeleVazia() == 0) {
+            JOptionPane.showMessageDialog(null, "A tabela de Usuários está VAZIA. Crei um Usuário ADM");
+            NovoUsuario novoUsuario = new NovoUsuario();
+            AddUsuarios();
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -213,16 +215,50 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField InpSenha;
     private javax.swing.JTextField InpUsuario;
     private javax.swing.JButton btLogar;
-    private javax.swing.JButton btNovoUser;
     private javax.swing.JButton btSair;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+    DbDao Dao = new DbDao();
 
-    private void setIconImage(String coronaviruspng) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void AddUsuarios() {
+        NovoUsuario novoUsuario = new NovoUsuario();
+        novoUsuario.setVisible(true);
+    }
+
+    private void RealizarLogin() {
+        Dao.conectar();
+        Connection conn = Dao.getConn();
+        String sql = "SELECT Senha, Nivel FROM users WHERE Nome = \"" + InpUsuario.getText() + "\"";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);;
+            ResultSet ResultadoLogin = stmt.executeQuery();
+
+            ResultadoLogin.next();
+            // Captura a senha gravada no banco para Testar no Login
+            String Senha = ResultadoLogin.getString("Senha");
+
+            // Captura ddos para serem gravados no metodo GravaUsuarioLogado
+            String Nivel = ResultadoLogin.getString("Nivel");
+            String Nome = InpUsuario.getText();
+
+            Dao.Desconectar();
+            //Verifica se a senha digitada confere com a gravada no banco
+            if (Senha.equals(InpSenha.getText())) {
+
+                Dao.GravaUsuarioLogado(Nivel, Nome);
+                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                telaPrincipal.setVisible(true);
+                this.setVisible(false);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario / Senha Não conferem!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

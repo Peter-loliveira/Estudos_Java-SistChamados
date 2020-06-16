@@ -3,8 +3,8 @@
   <persistence-unit name="dbchamados?zeroDateTimeBehavior=convertToNullPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Formularios.Status</class>
-    <class>Formularios.Niveisacesso</class>
     <class>Formularios.Users</class>
+    <class>Formularios.NiveisAcesso</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dbchamados?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

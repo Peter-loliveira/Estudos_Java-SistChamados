@@ -29,7 +29,7 @@ import javax.persistence.Transient;
 @NamedQueries({
     @NamedQuery(name = "Niveisacesso.findAll", query = "SELECT n FROM Niveisacesso n")
     , @NamedQuery(name = "Niveisacesso.findByIn", query = "SELECT n FROM Niveisacesso n WHERE n.in = :in")})
-public class Niveisacesso implements Serializable {
+public class NiveisAcesso implements Serializable {
 
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
@@ -45,14 +45,14 @@ public class Niveisacesso implements Serializable {
     @Column(name = "Nivel")
     private String nivel;
 
-    public Niveisacesso() {
+    public NiveisAcesso() {
     }
 
-    public Niveisacesso(Integer in) {
+    public NiveisAcesso(Integer in) {
         this.in = in;
     }
 
-    public Niveisacesso(Integer in, String nivel) {
+    public NiveisAcesso(Integer in, String nivel) {
         this.in = in;
         this.nivel = nivel;
     }
@@ -87,10 +87,10 @@ public class Niveisacesso implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Niveisacesso)) {
+        if (!(object instanceof NiveisAcesso)) {
             return false;
         }
-        Niveisacesso other = (Niveisacesso) object;
+        NiveisAcesso other = (NiveisAcesso) object;
         if ((this.in == null && other.in != null) || (this.in != null && !this.in.equals(other.in))) {
             return false;
         }

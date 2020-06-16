@@ -1,9 +1,10 @@
 package Classes;
 
-//import Classes.AcessoAoDb;
+import Formularios.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +13,10 @@ import javax.swing.JOptionPane;
 public class DbDao {
 
     Connection conn;
-//    AcessoAoDb DB = new AcessoAoDb();
+
+    public Connection getConn() {
+        return conn;
+    }
 
 // <editor-fold defaultstate="collapsed" desc="Métodos para conectar e desconectar ao banco">
     public void conectar() {
@@ -73,9 +77,9 @@ public class DbDao {
             st.setInt(2, Nivel);
             st.setString(3, Senha);
             st.execute();
-            JOptionPane.showMessageDialog(null, "Usuario cadastrado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com Sucesso!");
         } catch (Exception e) {
-            System.out.println("CLASSE " + e);
+            System.out.println(e);
         }
 
 //Desconecta do Banco        
@@ -106,7 +110,7 @@ public class DbDao {
         Desconectar();
     }
 
-    public void CreateChamados(int CodCliente, int CodEquip, int Status, String DataAbertura, String DataFechamento) throws SQLException {
+    public void CreateChamados(int CodCliente, int CodEquip, int Status, String DataAbertura, String DataFechamento, String Defeito) throws SQLException {
 //Conecta ao Banco
         conectar();
 
@@ -114,8 +118,8 @@ public class DbDao {
         try {
             String sql;
             sql = "insert into chamados "
-                    + "(CodCliente, CodEquip, Status, DataAbertura, DataFechamento) values "
-                    + "(?,?,?,?,?)";
+                    + "(CodCliente, CodEquip, Status, DataAbertura, DataFechamento, Defeito) values "
+                    + "(?,?,?,?,?,?)";
             PreparedStatement st;
             st = conn.prepareStatement(sql);
             st.setInt(1, CodCliente);
@@ -123,6 +127,7 @@ public class DbDao {
             st.setInt(3, Status);
             st.setString(4, DataAbertura);
             st.setString(5, DataFechamento);
+            st.setString(6, Defeito);
             st.execute();
         } catch (Exception e) {
             System.out.println("CLASSE " + e);
@@ -228,9 +233,59 @@ public class DbDao {
         Desconectar();
     }
 
-// </editor-fold> 
-    
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="Métodos UPDATE">
-//############################# UPDATES ###################################
+    public void GravaUsuarioLogado(String Nivel, String Nome) {
+        conectar();
+
+        String sql = "UPDATE usuariologado SET Nivel =" + Nivel + ", Nome = \"" + Nome + "\"";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);;
+
+            // Precisei mudar para Int em vezz de ResultSet para fancionar.
+            // Nao sei o porque.......
+            stmt.execute(sql);
+
+            Desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 // </editor-fold> 
+
+// <editor-fold defaultstate="collapsed" desc="Métodos EXTRAS no Banco">
+//############################# UPDATES ###################################
+    public int checaTabeleVazia() {
+        try {
+            conectar();
+            String sql = "SELECT COUNT(ID) FROM users;";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int rows = Integer.parseInt(rs.getString(1));
+            Desconectar();
+            return rows;
+        } catch (SQLException e) {
+        }
+        return -1;
+    }
+
+    public String[] DadosUsuarioLogado() {
+        try {
+            conectar();
+            String sql = "SELECT Nivel, Nome FROM usuariologado;";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            String Dados[] = new String[2];
+            Dados[0] = rs.getString("Nome");
+            Dados[1] = rs.getString("Nivel");
+            Desconectar();
+            return Dados;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+// </editor-fold>     
 }
