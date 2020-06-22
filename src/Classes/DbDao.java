@@ -23,7 +23,7 @@ public class DbDao {
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbchamados", "root", "");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Conectado");
+            JOptionPane.showMessageDialog(null, "Serviço temporariamente indisponivel!");
         }
     }
 
@@ -31,7 +31,8 @@ public class DbDao {
         try {
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DbDao.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(DbDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("TESTE");
         }
     }
 // </editor-fold> 
@@ -163,7 +164,7 @@ public class DbDao {
         Desconectar();
     }
 
-    public void CreateEquipamentos(int ClienteID, String CondicoesEquip, int TipoEquip, String DataCadastro) throws SQLException {
+    public void CreateEquipamentos(int ClienteID, String TipoEquip, String Serial, String Marca) throws SQLException {
 //Conecta ao Banco
         conectar();
 
@@ -171,14 +172,14 @@ public class DbDao {
         try {
             String sql;
             sql = "insert into equipamentos "
-                    + "(ClienteID, CondicoesEquip, TipoEquip, DataCadastro) values "
+                    + "(ClienteID, TipoEquip, Serial, Marca) values "
                     + "(?,?,?,?)";
             PreparedStatement st;
             st = conn.prepareStatement(sql);
             st.setInt(1, ClienteID);
-            st.setString(2, CondicoesEquip);
-            st.setInt(3, TipoEquip);
-            st.setString(2, DataCadastro);
+            st.setString(2, TipoEquip);
+            st.setString(3, Serial);
+            st.setString(4, Marca);
             st.execute();
         } catch (Exception e) {
             System.out.println("CLASSE " + e);
@@ -289,4 +290,5 @@ public class DbDao {
     }
 
 // </editor-fold>     
+
 }

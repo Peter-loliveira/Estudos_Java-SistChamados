@@ -5,6 +5,8 @@
     <class>Formularios.Status</class>
     <class>Formularios.Users</class>
     <class>Formularios.NiveisAcesso</class>
+    <class>Formularios.Clientes</class>
+    <class>Formularios.Tiposequip</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dbchamados?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

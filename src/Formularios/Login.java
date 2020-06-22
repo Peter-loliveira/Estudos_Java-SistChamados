@@ -3,6 +3,7 @@ package Formularios;
 import javax.swing.JOptionPane;
 
 import Classes.DbDao;
+import java.awt.Color;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -148,7 +149,7 @@ public class Login extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         if (Dao.checaTabelaVazia() == 0) {
             JOptionPane.showMessageDialog(null, "A tabela de Usuários está VAZIA. Crei um Usuário ADM");
-            NovoUsuario novoUsuario = new NovoUsuario();
+//            CadUsuario novoUsuario = new CadUsuario(); Não necessário. Só apagar após teste
             AddUsuarios();
         }
     }//GEN-LAST:event_formWindowOpened
@@ -203,7 +204,7 @@ public class Login extends javax.swing.JFrame {
 //    Metodo chamado Após o sistema verificar que 
 //    NÃO EXISTEM DADOS NA TABELA DE USUARIO
     private void AddUsuarios() {
-        NovoUsuario novoUsuario = new NovoUsuario();
+        CadUsuario novoUsuario = new CadUsuario();
         novoUsuario.setVisible(true);
     }
 
@@ -229,7 +230,7 @@ public class Login extends javax.swing.JFrame {
         }
         
         if (RegistrosEncontrados == 0) {
-            JOptionPane.showMessageDialog(this, "usuario não consta na base de dados!");
+            JOptionPane.showMessageDialog(this, "Usuario não consta na base de dados!");
 // </editor-fold>  
 
         } else {
