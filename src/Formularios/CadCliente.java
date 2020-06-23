@@ -72,6 +72,7 @@ public class CadCliente extends javax.swing.JFrame {
         jEnderço4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         InpTipoEquipamento = new javax.swing.JTextField();
+        btEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes e equipamentos");
@@ -141,7 +142,8 @@ public class CadCliente extends javax.swing.JFrame {
         jPanel1.add(botaoFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, -1));
 
         jBotaoSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBotaoSalvar.setText("Salvar");
+        jBotaoSalvar.setText("Salvar Novo Cliente");
+        jBotaoSalvar.setPreferredSize(new java.awt.Dimension(150, 23));
         jBotaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBotaoSalvarActionPerformed(evt);
@@ -167,10 +169,7 @@ public class CadCliente extends javax.swing.JFrame {
         jTabela.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Cod.", "Nome", "Telefone"
@@ -184,7 +183,7 @@ public class CadCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTabela.setPreferredSize(new java.awt.Dimension(300, 80));
+        jTabela.setPreferredSize(null);
         jTabela.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTabela.getTableHeader().setReorderingAllowed(false);
         jTabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,8 +215,8 @@ public class CadCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbEquipamentos);
 
-        btAddEquipamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btAddEquipamento.setText("+");
+        btAddEquipamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btAddEquipamento.setText("Salvar Equipamento");
         btAddEquipamento.setToolTipText("Adiciona um novo Equipamento");
         btAddEquipamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +242,14 @@ public class CadCliente extends javax.swing.JFrame {
 
         InpTipoEquipamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        btEditar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,39 +257,39 @@ public class CadCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jEnderço1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jEnderço2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(InpTipoEquipamento))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jEnderço3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inpMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(inpMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(inpSerial, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btAddEquipamento))
-                            .addComponent(jEnderço4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                                .addComponent(jEnderço4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(inpSerial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btAddEquipamento)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jEnderço1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBotaoSalvar)
-                        .addGap(312, 312, 312)
-                        .addComponent(jBotaoExcluir)
-                        .addGap(320, 320, 320)
-                        .addComponent(btVoltar))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btEditar))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jEnderço)
@@ -302,107 +309,140 @@ public class CadCliente extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextEndereço, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 10, Short.MAX_VALUE))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBotaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBotaoExcluir)
+                        .addGap(287, 287, 287)
+                        .addComponent(btVoltar)))
+                .addGap(0, 17, Short.MAX_VALUE))
             .addComponent(jSeparator2)
             .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNome)
+                            .addComponent(jNasc)
+                            .addComponent(jTel))))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jNome)
-                                    .addComponent(jNasc)
-                                    .addComponent(jTel))))
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jEnderço))
-                            .addComponent(jTextEndereço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBotaoSalvar)
-                            .addComponent(jBotaoExcluir)
-                            .addComponent(btVoltar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jEnderço))
+                    .addComponent(jTextEndereço, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBotaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBotaoExcluir)
+                    .addComponent(btVoltar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jEnderço1)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(btEditar)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEnderço1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jEnderço3)
-                            .addComponent(jEnderço2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(inpMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InpTipoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jEnderço3)
+                                    .addComponent(jEnderço2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(inpMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(InpTipoEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jEnderço4))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(513, 513, 513)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addGap(147, 147, 147)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(inpSerial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btAddEquipamento)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(494, 494, 494)
-                        .addComponent(jEnderço4)))
-                .addContainerGap())
+                            .addComponent(btAddEquipamento))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-        // TODO add your handling code here:
+    // TODO add your handling code here:
     private void jBotaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotaoSalvarActionPerformed
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
-                    + "dbchamados?", "root", "");
-            String sql = "insert into clientes(Nome,DataNasc,Cel,Endereco,Genero"
-                    + ") values (?,?,?,?,?)";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, this.jTextNome.getText());
-            stmt.setString(2, jTextNasc.getText());
-            stmt.setString(3, (this.jTextTel.getText()));
-            stmt.setString(4, this.jTextEndereço.getText());
-            //                SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-
+        //Verifica qual o texto do botão salvar e muda a SQL de acordo com o text
+        if (jBotaoSalvar.getText().equals("Editar Cliente")) {
+            String Nome = jTextNome.getText();
+            String DataNasc = jTextNasc.getText();
+            String Cel = jTextTel.getText();
+            String Endereco = jTextEndereço.getText();
+            String Genero;
             if (botaoMasculino.isSelected()) {
-                // ConsultaCliente.setSexo("M");
-                stmt.setString(5, "M");
+                Genero = "M";
             } else {
-                stmt.setString(5, "F");
+                Genero = "F";
             }
-            stmt.execute();
-            stmt.close();
-            connection.close();
-            //executeUpdate(5);
-            ApagaCampoClientes();
-            PesquisaCliente();
-            PesquisaEquipamentos();
-            JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e);
+
+//        UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero )
+            Dao.UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero, SelecionaCodCliente());
+            jBotaoSalvar.setText("Salvar Novo Cliente");
+
+        } else {
+
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
+                        + "dbchamados?", "root", "");
+                String sql = "insert into clientes(Nome,DataNasc,Cel,Endereco,Genero"
+                        + ") values (?,?,?,?,?)";
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setString(1, this.jTextNome.getText());
+                stmt.setString(2, jTextNasc.getText());
+                stmt.setString(3, (this.jTextTel.getText()));
+                stmt.setString(4, this.jTextEndereço.getText());
+
+                if (botaoMasculino.isSelected()) {
+                    // ConsultaCliente.setSexo("M");
+                    stmt.setString(5, "M");
+                } else {
+                    stmt.setString(5, "F");
+                }
+                stmt.execute();
+                stmt.close();
+                connection.close();
+                //executeUpdate(5);
+                ApagaCampoClientes();
+
+                JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
         }
+        PesquisaCliente();
+        PesquisaEquipamentos();
     }//GEN-LAST:event_jBotaoSalvarActionPerformed
 
     private void jBotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotaoExcluirActionPerformed
@@ -442,8 +482,10 @@ public class CadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTextNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeKeyReleased
-        PesquisaCliente();
-        PesquisaEquipamentos();
+        if (jBotaoSalvar.getText().equals("Salvar Novo Cliente")) {
+            PesquisaCliente();
+            PesquisaEquipamentos();
+        }
     }//GEN-LAST:event_jTextNomeKeyReleased
 
     private void btAddEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddEquipamentoActionPerformed
@@ -467,6 +509,44 @@ public class CadCliente extends javax.swing.JFrame {
     private void jTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaMouseClicked
         PesquisaEquipamentos();
     }//GEN-LAST:event_jTabelaMouseClicked
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        // TODO add your handling code here:
+        String sql = "SELECT Nome, DataNasc, Cel, Endereco, Genero FROM clientes WHERE ID = " + SelecionaCodCliente();
+        Dao.conectar();
+        Connection conn = Dao.getConn();
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet PesquisaCliente = stmt.executeQuery();
+            while (PesquisaCliente.next()) {
+                String[] DadosCliente = {
+                    PesquisaCliente.getString("Nome"),
+                    PesquisaCliente.getString("DataNasc"),
+                    PesquisaCliente.getString("Cel"),
+                    PesquisaCliente.getString("Endereco"),
+                    PesquisaCliente.getString("Genero")
+                };
+                //            JOptionPane.showMessageDialog(this, DadosCliente);
+                jTextNome.setText(DadosCliente[0]);
+                jTextNasc.setText(DadosCliente[1]);
+                jTextTel.setText(DadosCliente[2]);
+                jTextEndereço.setText(DadosCliente[3]);
+                jBotaoSalvar.setText("Editar Cliente");
+                if (DadosCliente[4].equals("M")) {
+                    botaoMasculino.setSelected(true);
+//                    botaoFeminino.setSelected(false);
+                } else if (DadosCliente[4].equals("F")) {
+//                    botaoMasculino.setSelected(false);
+                    botaoFeminino.setSelected(true);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CadCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Dao.Desconectar();
+
+    }//GEN-LAST:event_btEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,6 +592,7 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JRadioButton botaoFeminino;
     private javax.swing.JRadioButton botaoMasculino;
     private javax.swing.JButton btAddEquipamento;
+    private javax.swing.JButton btEditar;
     private javax.swing.JButton btVoltar;
     private javax.swing.JTextField inpMarcas;
     private javax.swing.JTextField inpSerial;

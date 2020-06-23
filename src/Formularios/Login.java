@@ -214,8 +214,8 @@ public class Login extends javax.swing.JFrame {
         Connection conn = Dao.getConn();
         String sql;
 
-// <editor-fold defaultstate="collapsed" desc="Checa se o usurio digitado CONTA na base de dados">        
-
+// <editor-fold defaultstate="collapsed" desc="Checa se o usuário digitado CONTA na base de dados">        
+        
         sql = "SELECT COUNT(ID) FROM users WHERE Nome = \"" + InpUsuario.getText() + "\"";
         PreparedStatement stmt;
         ResultSet ResultadoLogin;
@@ -251,7 +251,7 @@ public class Login extends javax.swing.JFrame {
                 Dao.Desconectar();
                 //Verifica se a senha digitada confere com a gravada no banco
                 if (Senha.equals(InpSenha.getText()) && Nome.equals(InpUsuario.getText())) {
-
+                    
                     Dao.GravaUsuarioLogado(Nivel, Nome);
                     TelaPrincipal telaPrincipal = new TelaPrincipal();
                     telaPrincipal.setVisible(true);

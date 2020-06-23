@@ -239,15 +239,36 @@ public class DbDao {
 // <editor-fold defaultstate="collapsed" desc="Métodos UPDATE">
     public void GravaUsuarioLogado(String Nivel, String Nome) {
         conectar();
-
-        String sql = "UPDATE usuariologado SET Nivel =" + Nivel + ", Nome = \"" + Nome + "\"";
+        String sql;
+        
+        sql = "UPDATE usuariologado SET Nivel =" + Nivel + ", Nome = \"" + Nome + "\"";
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);;
-
-            // Precisei mudar para Int em vezz de ResultSet para fancionar.
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            // Precisei mudar para Int em vez de ResultSet para fancionar.
             // Nao sei o porque.......
             stmt.execute(sql);
 
+            Desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void UpdateCliente(String Nome, String DataNasc, String Cel, String Endereco, String Genero, String ID ) {
+        conectar();
+        String sql;
+        
+        sql = "UPDATE clientes "
+                + "SET "
+                + "Nome = \"" + Nome + "\"" 
+                + ", DataNasc = \"" + DataNasc + "\"" 
+                + ", Cel = \"" + Cel + "\"" 
+                + ", Endereco = \"" + Endereco + "\"" 
+                + ", Genero = \"" + Genero +"\""
+                + " WHERE ID = " + ID;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.execute();
             Desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
