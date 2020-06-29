@@ -300,6 +300,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void imChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imChamadosActionPerformed
         // TODO add your handling code here:
+        Chamado chamados = new Chamado();
+        chamados.setVisible(true);
         
     }//GEN-LAST:event_imChamadosActionPerformed
 

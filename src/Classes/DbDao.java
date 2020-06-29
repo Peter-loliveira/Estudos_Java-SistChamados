@@ -111,7 +111,7 @@ public class DbDao {
         Desconectar();
     }
 
-    public void CreateChamados(int CodCliente, int CodEquip, int Status, String DataAbertura, String DataFechamento, String Defeito) throws SQLException {
+    public void CreateChamados(int CodCliente, int CodEquip, int Status, String DataAbertura, String Defeito) throws SQLException {
 //Conecta ao Banco
         conectar();
 
@@ -119,17 +119,18 @@ public class DbDao {
         try {
             String sql;
             sql = "insert into chamados "
-                    + "(CodCliente, CodEquip, Status, DataAbertura, DataFechamento, Defeito) values "
-                    + "(?,?,?,?,?,?)";
+                    + "(CodCliente, CodEquip, Status, DataAbertura, Defeito) values "
+                    + "(?,?,?,?,?)";
             PreparedStatement st;
             st = conn.prepareStatement(sql);
             st.setInt(1, CodCliente);
             st.setInt(2, CodEquip);
             st.setInt(3, Status);
             st.setString(4, DataAbertura);
-            st.setString(5, DataFechamento);
-            st.setString(6, Defeito);
+            st.setString(5, Defeito);
+//            JOptionPane.showMessageDialog(null, sql);
             st.execute();
+            JOptionPane.showMessageDialog(null, "Chamado Criado");
         } catch (Exception e) {
             System.out.println("CLASSE " + e);
         }

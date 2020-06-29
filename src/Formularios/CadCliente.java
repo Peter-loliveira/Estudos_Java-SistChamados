@@ -7,6 +7,8 @@ package Formularios;
 
 import Classes.DbDao;
 
+import Classes.Buscas;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author peter
+ * @author victor
+ * @Coauthor peter
  */
 public class CadCliente extends javax.swing.JFrame {
 
@@ -31,6 +34,7 @@ public class CadCliente extends javax.swing.JFrame {
     }
 
     DbDao Dao = new DbDao();
+    Buscas Buscas = new Buscas();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,7 +146,7 @@ public class CadCliente extends javax.swing.JFrame {
         jPanel1.add(botaoFeminino, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, -1));
 
         jBotaoSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBotaoSalvar.setText("Salvar Novo Cliente");
+        jBotaoSalvar.setText("Salvar Novo");
         jBotaoSalvar.setPreferredSize(new java.awt.Dimension(150, 23));
         jBotaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,9 +179,16 @@ public class CadCliente extends javax.swing.JFrame {
                 "Cod.", "Nome", "Telefone"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -269,12 +280,9 @@ public class CadCliente extends javax.swing.JFrame {
                             .addComponent(inpMarcas, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jEnderço4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inpSerial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jEnderço4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inpSerial, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btAddEquipamento)
@@ -395,7 +403,7 @@ public class CadCliente extends javax.swing.JFrame {
     // TODO add your handling code here:
     private void jBotaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotaoSalvarActionPerformed
         //Verifica qual o texto do botão salvar e muda a SQL de acordo com o text
-        if (jBotaoSalvar.getText().equals("Editar Cliente")) {
+        if (jBotaoSalvar.getText().equals("Salvar Alterações")) {
             String Nome = jTextNome.getText();
             String DataNasc = jTextNasc.getText();
             String Cel = jTextTel.getText();
@@ -409,7 +417,8 @@ public class CadCliente extends javax.swing.JFrame {
 
 //        UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero )
             Dao.UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero, SelecionaCodCliente());
-            jBotaoSalvar.setText("Salvar Novo Cliente");
+            jBotaoSalvar.setText("Salvar Novo");
+            ApagaCampoClientes();
 
         } else {
 
@@ -482,9 +491,10 @@ public class CadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTextNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeKeyReleased
-        if (jBotaoSalvar.getText().equals("Salvar Novo Cliente")) {
+        if (jBotaoSalvar.getText().equals("Salvar Novo")) {
             PesquisaCliente();
             PesquisaEquipamentos();
+
         }
     }//GEN-LAST:event_jTextNomeKeyReleased
 
@@ -503,7 +513,6 @@ public class CadCliente extends javax.swing.JFrame {
         }
         PesquisaEquipamentos();
         ApagaCampoEquipamentos();
-
     }//GEN-LAST:event_btAddEquipamentoActionPerformed
 
     private void jTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaMouseClicked
@@ -531,7 +540,7 @@ public class CadCliente extends javax.swing.JFrame {
                 jTextNasc.setText(DadosCliente[1]);
                 jTextTel.setText(DadosCliente[2]);
                 jTextEndereço.setText(DadosCliente[3]);
-                jBotaoSalvar.setText("Editar Cliente");
+                jBotaoSalvar.setText("Salvar Alterações");
                 if (DadosCliente[4].equals("M")) {
                     botaoMasculino.setSelected(true);
 //                    botaoFeminino.setSelected(false);
@@ -586,6 +595,7 @@ public class CadCliente extends javax.swing.JFrame {
         });
     }
 
+// <editor-fold defaultstate="collapsed" desc="DECLARAÇÃO DE VARIAVEIS DOS COMPONENTES">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField InpTipoEquipamento;
     private javax.swing.ButtonGroup bgSexo;
@@ -621,62 +631,68 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JTable tbEquipamentos;
     // End of variables declaration//GEN-END:variables
 
+// </editor-fold>    
+    
     private void PesquisaCliente() {
+        Dao.conectar();
+        Connection conn = Dao.getConn();
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbchamados", "root", "");
             String sql = "select * from Clientes";
             if (!jTextNome.getText().equals("")) {
                 sql = sql + " where Nome LIKE ? ";
             }
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             if (!jTextNome.getText().equals("")) {
                 stmt.setString(1, jTextNome.getText() + "%");
             }
-            ResultSet rs = stmt.executeQuery();
+
+            ResultSet ResultadoClientes = stmt.executeQuery();
             DefaultTableModel TabClientes = (DefaultTableModel) jTabela.getModel();
             TabClientes.setNumRows(0);
-            while (rs.next()) {
+            while (ResultadoClientes.next()) {
                 String[] linha = {
-                    rs.getString("ID"),
-                    rs.getString("Nome"),
-                    rs.getString("DataNasc"),
-                    rs.getString("Cel"),
-                    rs.getString("Endereco"),
-                    rs.getString("Genero")
+                    ResultadoClientes.getString("ID"),
+                    ResultadoClientes.getString("Nome"),
+                    ResultadoClientes.getString("DataNasc"),
+                    ResultadoClientes.getString("Cel"),
+                    ResultadoClientes.getString("Endereco"),
+                    ResultadoClientes.getString("Genero")
                 };
                 TabClientes.addRow(linha);
+
 //              Seleciona a primara linha da tabela
                 jTabela.setRowSelectionInterval(0, 0);
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e);
         }
+        Dao.Desconectar();
     }
 
     private void PesquisaEquipamentos() {
+        Dao.conectar();
+        Connection conn = Dao.getConn();
+
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbchamados", "root", "");
             String sql = "select * from equipamentos where ClienteID = " + SelecionaCodCliente();
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet ResultadoEquipamentos = stmt.executeQuery();
 
             DefaultTableModel TabEquipamentos = (DefaultTableModel) tbEquipamentos.getModel();
             TabEquipamentos.setNumRows(0);
-            while (rs.next()) {
+            while (ResultadoEquipamentos.next()) {
                 String[] linha = {
-                    rs.getString("TipoEquip"),
-                    rs.getString("Marca"),
-                    rs.getString("Serial")
+                    ResultadoEquipamentos.getString("TipoEquip"),
+                    ResultadoEquipamentos.getString("Marca"),
+                    ResultadoEquipamentos.getString("Serial")
                 };
                 TabEquipamentos.addRow(linha);
             }
-            stmt.close();
-            con.close();
+            Dao.Desconectar();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e);
         }
+        
     }
 
     private String SelecionaCodCliente() {
