@@ -6,16 +6,13 @@
 package Formularios;
 
 import Classes.DbDao;
+import Classes.ProcedimentosAuxiliares;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;  
 
 /**
  *
@@ -31,6 +28,7 @@ public class Chamado extends javax.swing.JFrame {
         initComponents();
     }
     DbDao Dao = new DbDao();
+    ProcedimentosAuxiliares Procedimentos = new ProcedimentosAuxiliares();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -204,7 +202,7 @@ public class Chamado extends javax.swing.JFrame {
         int CodEquipamento = Integer.parseInt(tbEquipamentos.getValueAt(LinhaEquipamentos, 0).toString());
         
         int Status = 1;
-        String DatAbertura = DataAtual();
+        String DatAbertura = Procedimentos.DataAtual();
         String Defeito = jDefeito.getText();
 
         try {
@@ -358,10 +356,6 @@ public class Chamado extends javax.swing.JFrame {
         return CodCli;
     }
 
-    private String DataAtual() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        return dtf.format(now);
-    }
+    
 
 }

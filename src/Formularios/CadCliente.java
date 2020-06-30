@@ -402,7 +402,8 @@ public class CadCliente extends javax.swing.JFrame {
 
     // TODO add your handling code here:
     private void jBotaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotaoSalvarActionPerformed
-        //Verifica qual o texto do botão salvar e muda a SQL de acordo com o text
+        // Verifica qual o texto do botão salvar e muda a SQL e o 
+        // procedimento que será executados de acordo com o texto 
         if (jBotaoSalvar.getText().equals("Salvar Alterações")) {
             String Nome = jTextNome.getText();
             String DataNasc = jTextNasc.getText();
@@ -415,7 +416,6 @@ public class CadCliente extends javax.swing.JFrame {
                 Genero = "F";
             }
 
-//        UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero )
             Dao.UpdateCliente(Nome, DataNasc, Cel, Endereco, Genero, SelecionaCodCliente());
             jBotaoSalvar.setText("Salvar Novo");
             ApagaCampoClientes();
@@ -428,13 +428,13 @@ public class CadCliente extends javax.swing.JFrame {
                 String sql = "insert into clientes(Nome,DataNasc,Cel,Endereco,Genero"
                         + ") values (?,?,?,?,?)";
                 PreparedStatement stmt = connection.prepareStatement(sql);
-                stmt.setString(1, this.jTextNome.getText());
+                stmt.setString(1, jTextNome.getText());
                 stmt.setString(2, jTextNasc.getText());
-                stmt.setString(3, (this.jTextTel.getText()));
-                stmt.setString(4, this.jTextEndereço.getText());
+                stmt.setString(3, jTextTel.getText());
+                stmt.setString(4, jTextEndereço.getText());
 
+                // Determina qual genero sera gravado;
                 if (botaoMasculino.isSelected()) {
-                    // ConsultaCliente.setSexo("M");
                     stmt.setString(5, "M");
                 } else {
                     stmt.setString(5, "F");
@@ -442,7 +442,7 @@ public class CadCliente extends javax.swing.JFrame {
                 stmt.execute();
                 stmt.close();
                 connection.close();
-                //executeUpdate(5);
+                
                 ApagaCampoClientes();
 
                 JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!");
@@ -636,8 +636,11 @@ public class CadCliente extends javax.swing.JFrame {
     private void PesquisaCliente() {
         Dao.conectar();
         Connection conn = Dao.getConn();
+
+        DefaultTableModel TabClientes = (DefaultTableModel) jTabela.getModel();
+        TabClientes.setNumRows(0);
         try {
-            String sql = "select * from Clientes";
+                        String sql = "select * from Clientes";;
             if (!jTextNome.getText().equals("")) {
                 sql = sql + " where Nome LIKE ? ";
             }
@@ -647,28 +650,27 @@ public class CadCliente extends javax.swing.JFrame {
             }
 
             ResultSet ResultadoClientes = stmt.executeQuery();
-            DefaultTableModel TabClientes = (DefaultTableModel) jTabela.getModel();
-            TabClientes.setNumRows(0);
             while (ResultadoClientes.next()) {
-                String[] linha = {
-                    ResultadoClientes.getString("ID"),
-                    ResultadoClientes.getString("Nome"),
-                    ResultadoClientes.getString("DataNasc"),
-                    ResultadoClientes.getString("Cel"),
-                    ResultadoClientes.getString("Endereco"),
-                    ResultadoClientes.getString("Genero")
-                };
-                TabClientes.addRow(linha);
+            String[] linha = {
+                ResultadoClientes.getString("ID"),
+                ResultadoClientes.getString("Nome"),
+                ResultadoClientes.getString("DataNasc"),
+                ResultadoClientes.getString("Cel"),
+                ResultadoClientes.getString("Endereco"),
+                ResultadoClientes.getString("Genero")
+            };
+            TabClientes.addRow(linha);
 
 //              Seleciona a primara linha da tabela
-                jTabela.setRowSelectionInterval(0, 0);
+            jTabela.setRowSelectionInterval(0, 0);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e);
+        } catch (Exception e) {
         }
-        Dao.Desconectar();
-    }
+        
 
+        }
+    
+        
     private void PesquisaEquipamentos() {
         Dao.conectar();
         Connection conn = Dao.getConn();
@@ -692,7 +694,7 @@ public class CadCliente extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e);
         }
-        
+
     }
 
     private String SelecionaCodCliente() {

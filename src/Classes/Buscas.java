@@ -7,24 +7,36 @@ package Classes;
 
 import Classes.DbDao;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author peter
+ * @author peter / Carla
  */
 public class Buscas {
 
     DbDao Dao = new DbDao();
     
+    ResultSet ResultadoClientes;
+    ResultSet ResultadoChamado;
+    ResultSet ResultadoStatos;
+    
+    public ResultSet GetResultadoCliente(){
+        return ResultadoClientes;
+    }
+    
+    public ResultSet GetResultadoStatus(){
+        return ResultadoStatos;
+    }
+    
+    
 //    Connection Conn = Dao.getConn();
 
-    public ResultSet PesquisaCliente(String NomeCliente) {
+    public void PesquisaCliente(String NomeCliente) {
         try {
             Dao.conectar();
             Connection Conn = Dao.getConn();
@@ -40,16 +52,33 @@ public class Buscas {
                 stmt.setString(1, NomeCliente + "%");
             }
             
-            ResultSet ListaClientes = stmt.executeQuery();
-//            stmt.close();
-//            ResultSet Lista2 = ListaClientes;
+            ResultadoClientes =  stmt.executeQuery();
             Dao.Desconectar();
-            JOptionPane.showMessageDialog(null, ListaClientes);
-            return ListaClientes;
-//            return Lista2;
             
         } catch (SQLException e) {
         }
-        return null;
+    }
+    
+    public void PesquisaChamado(String OS){
+        Dao.conectar();
+        
+        String Sql = "Select * from Chamados where ID = " + OS;
+        
+        Dao.Desconectar();
+        
+    }
+    
+    public void PesquisaStatus(){
+        Dao.conectar();
+        Connection Conn = Dao.getConn();
+        String Sql = "SELECT situacao FROM STATUS";
+        try {
+            PreparedStatement stmt = Conn.prepareStatement(Sql); 
+            ResultadoStatos = stmt.executeQuery();            
+        } catch (SQLException ex) {
+            Logger.getLogger(Buscas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Dao.Desconectar();
     }
 }

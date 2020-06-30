@@ -8,7 +8,6 @@ package Formularios;
 import Excluir.CadEquipamentos;
 import Classes.DbDao;
 
-
 /**
  *
  * @author peter
@@ -43,12 +42,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSistema = new javax.swing.JMenu();
-        imCadastros = new javax.swing.JMenu();
-        imClientes = new javax.swing.JMenuItem();
-        imChamados = new javax.swing.JMenuItem();
-        imSair = new javax.swing.JMenuItem();
-        MenuAdm = new javax.swing.JMenu();
+        MenuCadastros = new javax.swing.JMenu();
         imUsuarios = new javax.swing.JMenuItem();
+        imClientes = new javax.swing.JMenuItem();
+        MenuChamados = new javax.swing.JMenu();
+        imChamados = new javax.swing.JMenuItem();
+        imAtendimentos = new javax.swing.JMenuItem();
+        imSair = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         imSobre = new javax.swing.JMenuItem();
 
@@ -154,8 +154,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuSistema.setText("Sistema");
 
-        imCadastros.setText("Cadastros");
-        imCadastros.setEnabled(false);
+        MenuCadastros.setText("Cadastros");
+        MenuCadastros.setEnabled(false);
+
+        imUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, 0));
+        imUsuarios.setText("Usuários do Sistema");
+        imUsuarios.setEnabled(false);
+        imUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imUsuariosActionPerformed(evt);
+            }
+        });
+        MenuCadastros.add(imUsuarios);
 
         imClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0));
         imClientes.setText("Clientes / Equipamentos");
@@ -165,19 +175,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 imClientesActionPerformed(evt);
             }
         });
-        imCadastros.add(imClientes);
+        MenuCadastros.add(imClientes);
+
+        menuSistema.add(MenuCadastros);
+
+        MenuChamados.setText("Chamados");
+        MenuChamados.setEnabled(false);
 
         imChamados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
-        imChamados.setText("Chamados");
+        imChamados.setText("Criar Chamados");
         imChamados.setEnabled(false);
         imChamados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imChamadosActionPerformed(evt);
             }
         });
-        imCadastros.add(imChamados);
+        MenuChamados.add(imChamados);
 
-        menuSistema.add(imCadastros);
+        imAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
+        imAtendimentos.setText("Atender Chamado");
+        imAtendimentos.setEnabled(false);
+        imAtendimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imAtendimentosActionPerformed(evt);
+            }
+        });
+        MenuChamados.add(imAtendimentos);
+
+        menuSistema.add(MenuChamados);
 
         imSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         imSair.setText("Sair");
@@ -189,19 +214,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuSistema.add(imSair);
 
         jMenuBar1.add(menuSistema);
-
-        MenuAdm.setText("Administrativo");
-
-        imUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, 0));
-        imUsuarios.setText("Usuários do Sistema");
-        imUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imUsuariosActionPerformed(evt);
-            }
-        });
-        MenuAdm.add(imUsuarios);
-
-        jMenuBar1.add(MenuAdm);
 
         MenuAjuda.setText("Ajuda");
 
@@ -251,34 +263,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String DadosLogados[] = new String[2];
         DadosLogados = Dao.DadosUsuarioLogado();
         String TituloTela = null;
-                
+
         switch (DadosLogados[1]) {
             case "1":
-                MenuAdm.setEnabled(true);
-                imUsuarios.setEnabled(true);
-                menuSistema.setEnabled(true);
-                imCadastros.setEnabled(true);
-                imClientes.setEnabled(true);
-                imChamados.setEnabled(true);
                 TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: ADMINISTRADOR ";
+                
+                MenuCadastros.setEnabled(true);
+                imUsuarios.setEnabled(true);
+                imClientes.setEnabled(true);
+
+                MenuChamados.setEnabled(true);
+                imChamados.setEnabled(true);
+                imAtendimentos.setEnabled(true);
+                
                 break;
             case "2":
-                MenuAdm.setEnabled(false);
-                imUsuarios.setEnabled(false);
-                menuSistema.setEnabled(true);
-                imCadastros.setEnabled(true);
-                imClientes.setEnabled(true);
-                imChamados.setEnabled(true);
                 TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: GERENTE ";
+                
+                MenuCadastros.setEnabled(true);
+                imUsuarios.setEnabled(false);
+                imClientes.setEnabled(true);
+
+                MenuChamados.setEnabled(true);
+                imChamados.setEnabled(true);
+                imAtendimentos.setEnabled(true);
+                
                 break;
             case "3":
-                MenuAdm.setEnabled(false);
-                imUsuarios.setEnabled(false);
-                menuSistema.setEnabled(true);
-                imCadastros.setEnabled(true);
-                imClientes.setEnabled(false);
-                imChamados.setEnabled(true);
                 TituloTela = "Sistema de Chamados - Usuário: " + DadosLogados[0] + ". Nivel: TÉCNICO ";
+                
+                MenuCadastros.setEnabled(false);
+                imUsuarios.setEnabled(false);
+                imClientes.setEnabled(false);
+
+                MenuChamados.setEnabled(true);
+                imChamados.setEnabled(true);
+                imAtendimentos.setEnabled(true);
+                
                 break;
             default:
                 break;
@@ -295,19 +316,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
         Login Login = new Login();
         Login.setVisible(true);
-        
+
     }//GEN-LAST:event_imSairActionPerformed
 
     private void imChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imChamadosActionPerformed
         // TODO add your handling code here:
         Chamado chamados = new Chamado();
         chamados.setVisible(true);
-        
+
     }//GEN-LAST:event_imChamadosActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void imAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imAtendimentosActionPerformed
+        // TODO add your handling code here:
+        CadAtendimentos Atendimento = new CadAtendimentos();
+        Atendimento.setVisible(true);
+    }//GEN-LAST:event_imAtendimentosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,9 +372,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuAdm;
     private javax.swing.JMenu MenuAjuda;
-    private javax.swing.JMenu imCadastros;
+    private javax.swing.JMenu MenuCadastros;
+    private javax.swing.JMenu MenuChamados;
+    private javax.swing.JMenuItem imAtendimentos;
     private javax.swing.JMenuItem imChamados;
     private javax.swing.JMenuItem imClientes;
     private javax.swing.JMenuItem imSair;
