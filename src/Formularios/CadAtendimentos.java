@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author peter
+ * @author peter - Carla - Peter
  */
 public class CadAtendimentos extends javax.swing.JFrame {
 
@@ -28,10 +28,13 @@ public class CadAtendimentos extends javax.swing.JFrame {
     public CadAtendimentos() {
         initComponents();
     }
+    
+    
 
 // <editor-fold defaultstate="collapsed" desc="Instanciamento das Classes">                          
     DbDao Dao = new DbDao();
     ProcedimentosAuxiliares Procedimentos = new ProcedimentosAuxiliares();
+    TelaPrincipal telaPrincipal = new TelaPrincipal();
 // </editor-fold>
 
     /**
@@ -43,14 +46,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         inpNovoAtendimento = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cbStatus = new javax.swing.JComboBox<>();
-        btAddStatus = new javax.swing.JButton();
         btSalvarAtendimento = new javax.swing.JButton();
         inpDataFechamento = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -71,21 +71,19 @@ public class CadAtendimentos extends javax.swing.JFrame {
         tbAtendimentos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         impValorOrcamento = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        btSalvarAtendimento1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Atendimento OS");
-        jLabel1.setToolTipText("");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Novo Atendimento ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel4.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Histórico ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         inpNovoAtendimento.setColumns(20);
         inpNovoAtendimento.setRows(5);
@@ -96,14 +94,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Status");
-
-        btAddStatus.setText("+");
-        btAddStatus.setToolTipText("Adiciona novos Staus possiveis para os chamados");
-        btAddStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAddStatusActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -118,10 +108,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
                         .addComponent(jScrollPane4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btAddStatus)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -133,13 +119,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btAddStatus))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        btSalvarAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Salvar2.png"))); // NOI18N
         btSalvarAtendimento.setText("Salvar");
         btSalvarAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,10 +138,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
         }
         inpDataFechamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Data Retirada");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Chamados "));
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Chamados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("OS");
@@ -244,7 +229,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Histórico ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel3.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Histórico ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         tbAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -280,59 +266,89 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Valor Orçamento");
+
+        jPanel5.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Atendente.png"))); // NOI18N
+        jLabel11.setText("Atendimento OS (Ordem de Serviço)");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addGap(339, 339, 339))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel11)
+                .addGap(0, 3, Short.MAX_VALUE))
+        );
+
+        btSalvarAtendimento1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
+        btSalvarAtendimento1.setText("Voltar");
+        btSalvarAtendimento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarAtendimento1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(4, 4, 4)
                 .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSalvarAtendimento)
+                .addGap(18, 18, 18)
+                .addComponent(btSalvarAtendimento1)
                 .addContainerGap())
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(btSalvarAtendimento)
-                    .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btSalvarAtendimento)
+                        .addComponent(btSalvarAtendimento1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel9)
+                        .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btAddStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddStatusActionPerformed
-        // TODO add your handling code here:
-        StatusChamados Status = new StatusChamados();
-        Status.setVisible(true);
-    }//GEN-LAST:event_btAddStatusActionPerformed
 
     private void inpOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpOSFocusLost
         String OS = inpOS.getText();
@@ -348,6 +364,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         tbAtendimentos.getColumnModel().getColumn(1).setPreferredWidth(800);
     }//GEN-LAST:event_formWindowActivated
+
+    private void btSalvarAtendimento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimento1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_btSalvarAtendimento1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,9 +405,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }
 //<editor-fold defaultstate="collapsed" desc=" VARIAVEIS DE COMPONENTES LOCAIS ">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAddStatus;
     private javax.swing.JButton btSalvarAtendimento;
-    private javax.swing.JComboBox<String> cbStatus;
+    private javax.swing.JButton btSalvarAtendimento1;
     private javax.swing.JTextField impValorOrcamento;
     private javax.swing.JTextField inpCliente;
     private javax.swing.JFormattedTextField inpDataFechamento;
@@ -396,8 +415,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JTextArea inpNovoAtendimento;
     private javax.swing.JTextField inpOS;
     private javax.swing.JTextField inpSerial;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -409,6 +428,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
