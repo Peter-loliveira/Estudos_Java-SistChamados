@@ -280,7 +280,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuChamados.setEnabled(false);
 
         imChamados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, 0));
-        imChamados.setText("Criar Chamados");
+        imChamados.setText("Abrir Ordem de Serviços");
         imChamados.setEnabled(false);
         imChamados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,7 +290,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuChamados.add(imChamados);
 
         imAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
-        imAtendimentos.setText("Atender Chamado");
+        imAtendimentos.setText("Atender OS");
         imAtendimentos.setEnabled(false);
         imAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

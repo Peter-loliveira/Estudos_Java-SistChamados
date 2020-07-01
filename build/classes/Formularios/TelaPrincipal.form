@@ -52,7 +52,7 @@
                     <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                       <KeyStroke key="O"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Criar Chamados"/>
+                    <Property name="text" type="java.lang.String" value="Abrir Ordem de Servi&#xe7;os"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
@@ -64,7 +64,7 @@
                     <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                       <KeyStroke key="A"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Atender Chamado"/>
+                    <Property name="text" type="java.lang.String" value="Atender OS"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
