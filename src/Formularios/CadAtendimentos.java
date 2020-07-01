@@ -51,8 +51,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cbSetores = new javax.swing.JComboBox<>();
         btSalvarAtendimento = new javax.swing.JButton();
-        inpDataFechamento = new javax.swing.JFormattedTextField();
-        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -71,10 +69,14 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        btSalvarAtendimento1 = new javax.swing.JButton();
-        impValorOrcamento1 = new javax.swing.JTextField();
+        btVoltar = new javax.swing.JButton();
+        inpValorOrcamento = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        cxbFecharChamado = new javax.swing.JCheckBox();
+        lbDataFechamento = new javax.swing.JLabel();
+        inpDataFechamento = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -135,16 +137,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 btSalvarAtendimentoActionPerformed(evt);
             }
         });
-
-        try {
-            inpDataFechamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        inpDataFechamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Data Retirada");
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Chamados ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -297,36 +289,85 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        btSalvarAtendimento1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
-        btSalvarAtendimento1.setText("Voltar");
-        btSalvarAtendimento1.addActionListener(new java.awt.event.ActionListener() {
+        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarAtendimento1ActionPerformed(evt);
+                btVoltarActionPerformed(evt);
             }
         });
+
+        inpValorOrcamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inpValorOrcamentoFocusLost(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        cxbFecharChamado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cxbFecharChamado.setText("Fechar Chamado");
+        cxbFecharChamado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cxbFecharChamadoMouseClicked(evt);
+            }
+        });
+
+        lbDataFechamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbDataFechamento.setText("Data Retirada");
+        lbDataFechamento.setEnabled(false);
+
+        try {
+            inpDataFechamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        inpDataFechamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inpDataFechamento.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(cxbFecharChamado)
+                .addGap(18, 18, 18)
+                .addComponent(lbDataFechamento)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbDataFechamento)
+                    .addComponent(cxbFecharChamado))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(impValorOrcamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(inpValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btSalvarAtendimento)
                 .addGap(18, 18, 18)
-                .addComponent(btSalvarAtendimento1)
+                .addComponent(btVoltar)
                 .addContainerGap())
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,20 +375,17 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btSalvarAtendimento)
-                        .addComponent(btSalvarAtendimento1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel9)
-                        .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(impValorOrcamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btSalvarAtendimento)
+                    .addComponent(btVoltar)
+                    .addComponent(inpValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -356,25 +394,50 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inpOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpOSFocusLost
-        String OS = inpOS.getText();
-        BuscaOS(OS);
-        PreencheTabela();
-        VerificaStatusChamado();
-        inpNovoAtendimento.requestFocus();
+//        Verifica se algum valor foi digitado
+        if (!inpOS.getText().equals("")) {
+            String OS = inpOS.getText();
+            BuscaOS(OS);
+            PreencheTabela();
+            VerificaStatusChamado();
+            BuscaValorOrcamento();
+            inpNovoAtendimento.requestFocus();
+        }
     }//GEN-LAST:event_inpOSFocusLost
 
     private void btSalvarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimentoActionPerformed
         SalvaAtendimento();
         AlterarStatusChamado();
+        if (!inpValorOrcamento.getText().equals("")) {
+            InsereValorOrcamento();
+        }
     }//GEN-LAST:event_btSalvarAtendimentoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         tbAtendimentos.getColumnModel().getColumn(1).setPreferredWidth(800);
     }//GEN-LAST:event_formWindowActivated
 
-    private void btSalvarAtendimento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimento1ActionPerformed
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         dispose();
-    }//GEN-LAST:event_btSalvarAtendimento1ActionPerformed
+    }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void cxbFecharChamadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cxbFecharChamadoMouseClicked
+        // TODO add your handling code here:
+        if (cxbFecharChamado.isSelected()) {
+            inpDataFechamento.setEnabled(true);
+            lbDataFechamento.setEnabled(true);
+            inpDataFechamento.requestFocus();
+        } else {
+            inpDataFechamento.setEnabled(false);
+            lbDataFechamento.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_cxbFecharChamadoMouseClicked
+
+    private void inpValorOrcamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpValorOrcamentoFocusLost
+
+
+    }//GEN-LAST:event_inpValorOrcamentoFocusLost
 
     /**
      * @param args the command line arguments
@@ -413,9 +476,9 @@ public class CadAtendimentos extends javax.swing.JFrame {
 //<editor-fold defaultstate="collapsed" desc=" VARIAVEIS DE COMPONENTES LOCAIS ">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvarAtendimento;
-    private javax.swing.JButton btSalvarAtendimento1;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JComboBox<String> cbSetores;
-    private javax.swing.JTextField impValorOrcamento1;
+    private javax.swing.JCheckBox cxbFecharChamado;
     private javax.swing.JTextField inpCliente;
     private javax.swing.JFormattedTextField inpDataFechamento;
     private javax.swing.JTextArea inpDefeito;
@@ -423,6 +486,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JTextArea inpNovoAtendimento;
     private javax.swing.JTextField inpOS;
     private javax.swing.JTextField inpSerial;
+    private javax.swing.JTextField inpValorOrcamento;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -432,7 +496,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -440,6 +504,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lbDataFechamento;
     private javax.swing.JTable tbAtendimentos;
     // End of variables declaration//GEN-END:variables
 //</editor-fold>
@@ -447,12 +512,12 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private void BuscaOS(String OS) {
         Dao.conectar();
         Connection Conn = Dao.getConn();
-        
+
         ResultSet DadosOS;
         ResultSet Dados;
-        
+
         PreparedStatement stmt;
-        
+
         try {
             //Captura TODOS os dados da OS
             String sql = "Select * from chamados where ID = " + OS;
@@ -469,15 +534,15 @@ public class CadAtendimentos extends javax.swing.JFrame {
                         + "WHERE clientes.ID = ? "
                         + "AND equipamentos.ID = ? "
                         + "AND chamados.ID = " + OS;
-                
+
                 stmt = Conn.prepareStatement(sql);
-                
+
                 String CodCliente = DadosOS.getString("CodCliente");
                 String CodEquipamento = DadosOS.getString("CodEquip");
-                
+
                 stmt.setString(1, CodCliente);
                 stmt.setString(2, CodEquipamento);
-                
+
                 Dados = stmt.executeQuery();
                 while (Dados.next()) {
                     inpCliente.setText(Dados.getString("Nome"));
@@ -489,10 +554,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Dao.Desconectar();
     }
-    
+
     private void SalvaAtendimento() {
         int OS = Integer.parseInt(inpOS.getText());
         String Descricao = inpNovoAtendimento.getText();
@@ -503,22 +568,24 @@ public class CadAtendimentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel gravar os dados!");
         }
         PreencheTabela();
-        
+        if (cxbFecharChamado.isSelected()) {
+            FechaChamado();
+        }
         inpNovoAtendimento.setText("");
     }
-    
+
     private void PreencheTabela() {
         Dao.conectar();
         Connection conn = Dao.getConn();
-        
+
         DefaultTableModel tabAtendimentos = (DefaultTableModel) tbAtendimentos.getModel();
         tabAtendimentos.setNumRows(0);
-        
+
         String sql = "select * from atendimentos where CodChamado = " + inpOS.getText();
         try {
             PreparedStatement ResultadoAtendimentos = conn.prepareStatement(sql);
             ResultSet DadosAtendimentos = ResultadoAtendimentos.executeQuery();
-            
+
             while (DadosAtendimentos.next()) {
                 String[] Linha = {
                     DadosAtendimentos.getString("DataAtendimento"),
@@ -526,20 +593,20 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 };
                 tabAtendimentos.addRow(Linha);
                 tbAtendimentos.setRowSelectionInterval(0, 0);
-            }            
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Dao.Desconectar();
     }
-    
+
     private void AlterarStatusChamado() {
         Dao.conectar();
         Connection Conn = Dao.getConn();
-        
+
         String sql = "UPDATE chamados SET `status` = ? WHERE id = ?";
-        
+
         String OS = inpOS.getText();
         String StatusOS = String.valueOf(cbSetores.getSelectedIndex() + 1);
         try {
@@ -557,7 +624,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private void VerificaStatusChamado() {
 //        Aproveito para informar no cbSetores em que situação está o chamado
         Dao.conectar();
-        Connection conn = Dao.getConn();        
+        Connection conn = Dao.getConn();
         String sql = "select `status` from chamados where ID = " + inpOS.getText();
         try {
             PreparedStatement ChecaStatusChamado = conn.prepareStatement(sql);
@@ -571,5 +638,51 @@ public class CadAtendimentos extends javax.swing.JFrame {
         }
         Dao.Desconectar();
     }
-    
+
+    private void FechaChamado() {
+        Dao.conectar();
+
+//        String Sql = ""
+        Dao.Desconectar();
+
+    }
+
+    private void InsereValorOrcamento() {
+
+        Dao.conectar();
+        Connection Conn = Dao.getConn();
+
+        float Valor = Float.parseFloat(inpValorOrcamento.getText());
+        String sql = "UPDATE `chamados` SET Valor = "
+                + Valor
+                + " WHERE ID = " + inpOS.getText();
+        PreparedStatement InsereOrcamento;
+        try {
+            InsereOrcamento = Conn.prepareStatement(sql);
+            InsereOrcamento.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Dao.Desconectar();
+    }
+
+    private void BuscaValorOrcamento() {
+        Dao.conectar();
+        Connection Conn = Dao.getConn();
+
+        String Sql = "Select Valor from chamados where ID = " + inpOS.getText();
+        try {
+            PreparedStatement BuscaValor = Conn.prepareStatement(Sql);
+            ResultSet Valor = BuscaValor.executeQuery();
+            while(Valor.next()){
+                inpValorOrcamento.setText(Valor.getString("Valor"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Dao.Desconectar();
+    }
+
 }
