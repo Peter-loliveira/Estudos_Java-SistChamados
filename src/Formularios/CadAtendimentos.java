@@ -6,7 +6,7 @@
 package Formularios;
 
 import Classes.DbDao;
-import  Classes.ProcedimentosAuxiliares;
+import Classes.ProcedimentosAuxiliares;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,8 +28,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
     public CadAtendimentos() {
         initComponents();
     }
-    
-    
 
 // <editor-fold defaultstate="collapsed" desc="Instanciamento das Classes">                          
     DbDao Dao = new DbDao();
@@ -51,6 +49,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         inpNovoAtendimento = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        cbSetores = new javax.swing.JComboBox<>();
         btSalvarAtendimento = new javax.swing.JButton();
         inpDataFechamento = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -70,10 +69,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbAtendimentos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        impValorOrcamento = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btSalvarAtendimento1 = new javax.swing.JButton();
+        impValorOrcamento1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -93,7 +92,9 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jLabel4.setText("Atendimento");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Status");
+        jLabel7.setText("Setor:");
+
+        cbSetores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencial", "Financeiro", "Tecnico" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -108,6 +109,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
                         .addComponent(jScrollPane4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
+                        .addGap(31, 31, 31)
+                        .addComponent(cbSetores, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -119,7 +122,9 @@ public class CadAtendimentos extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbSetores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -308,15 +313,15 @@ public class CadAtendimentos extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(impValorOrcamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(btSalvarAtendimento)
                 .addGap(18, 18, 18)
                 .addComponent(btSalvarAtendimento1)
@@ -333,16 +338,16 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btSalvarAtendimento)
                         .addComponent(btSalvarAtendimento1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel9)
-                        .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8)
-                        .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(impValorOrcamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -354,11 +359,13 @@ public class CadAtendimentos extends javax.swing.JFrame {
         String OS = inpOS.getText();
         BuscaOS(OS);
         PreencheTabela();
+        VerificaStatusChamado();
         inpNovoAtendimento.requestFocus();
     }//GEN-LAST:event_inpOSFocusLost
 
     private void btSalvarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimentoActionPerformed
         SalvaAtendimento();
+        AlterarStatusChamado();
     }//GEN-LAST:event_btSalvarAtendimentoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -407,7 +414,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvarAtendimento;
     private javax.swing.JButton btSalvarAtendimento1;
-    private javax.swing.JTextField impValorOrcamento;
+    private javax.swing.JComboBox<String> cbSetores;
+    private javax.swing.JTextField impValorOrcamento1;
     private javax.swing.JTextField inpCliente;
     private javax.swing.JFormattedTextField inpDataFechamento;
     private javax.swing.JTextArea inpDefeito;
@@ -439,12 +447,12 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private void BuscaOS(String OS) {
         Dao.conectar();
         Connection Conn = Dao.getConn();
-
+        
         ResultSet DadosOS;
         ResultSet Dados;
-
+        
         PreparedStatement stmt;
-
+        
         try {
             //Captura TODOS os dados da OS
             String sql = "Select * from chamados where ID = " + OS;
@@ -461,15 +469,15 @@ public class CadAtendimentos extends javax.swing.JFrame {
                         + "WHERE clientes.ID = ? "
                         + "AND equipamentos.ID = ? "
                         + "AND chamados.ID = " + OS;
-
+                
                 stmt = Conn.prepareStatement(sql);
-
+                
                 String CodCliente = DadosOS.getString("CodCliente");
                 String CodEquipamento = DadosOS.getString("CodEquip");
-
+                
                 stmt.setString(1, CodCliente);
                 stmt.setString(2, CodEquipamento);
-
+                
                 Dados = stmt.executeQuery();
                 while (Dados.next()) {
                     inpCliente.setText(Dados.getString("Nome"));
@@ -481,11 +489,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         Dao.Desconectar();
     }
-
-    private void SalvaAtendimento(){
+    
+    private void SalvaAtendimento() {
         int OS = Integer.parseInt(inpOS.getText());
         String Descricao = inpNovoAtendimento.getText();
         String DataAtual = Procedimentos.DataAtual();
@@ -495,13 +503,14 @@ public class CadAtendimentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel gravar os dados!");
         }
         PreencheTabela();
+        
         inpNovoAtendimento.setText("");
     }
     
-    private void PreencheTabela(){
+    private void PreencheTabela() {
         Dao.conectar();
         Connection conn = Dao.getConn();
-
+        
         DefaultTableModel tabAtendimentos = (DefaultTableModel) tbAtendimentos.getModel();
         tabAtendimentos.setNumRows(0);
         
@@ -510,17 +519,57 @@ public class CadAtendimentos extends javax.swing.JFrame {
             PreparedStatement ResultadoAtendimentos = conn.prepareStatement(sql);
             ResultSet DadosAtendimentos = ResultadoAtendimentos.executeQuery();
             
-            while(DadosAtendimentos.next()){
+            while (DadosAtendimentos.next()) {
                 String[] Linha = {
                     DadosAtendimentos.getString("DataAtendimento"),
                     DadosAtendimentos.getString("Descricao")
                 };
                 tabAtendimentos.addRow(Linha);
                 tbAtendimentos.setRowSelectionInterval(0, 0);
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Dao.Desconectar();
+    }
+    
+    private void AlterarStatusChamado() {
+        Dao.conectar();
+        Connection Conn = Dao.getConn();
+        
+        String sql = "UPDATE chamados SET `status` = ? WHERE id = ?";
+        
+        String OS = inpOS.getText();
+        String StatusOS = String.valueOf(cbSetores.getSelectedIndex() + 1);
+        try {
+            PreparedStatement UpdateChamado = Conn.prepareStatement(sql);
+            UpdateChamado.setString(1, StatusOS);
+            UpdateChamado.setString(2, OS);
+            UpdateChamado.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Dao.Desconectar();
+    }
+
+    private void VerificaStatusChamado() {
+//        Aproveito para informar no cbSetores em que situação está o chamado
+        Dao.conectar();
+        Connection conn = Dao.getConn();        
+        String sql = "select `status` from chamados where ID = " + inpOS.getText();
+        try {
+            PreparedStatement ChecaStatusChamado = conn.prepareStatement(sql);
+            ResultSet StatosOS = ChecaStatusChamado.executeQuery();
+            while (StatosOS.next()) {
+                int StatusChamado = Integer.parseInt(StatosOS.getString("status")) - 1;
+                cbSetores.setSelectedIndex(StatusChamado);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
         }
         Dao.Desconectar();
     }
+    
 }
