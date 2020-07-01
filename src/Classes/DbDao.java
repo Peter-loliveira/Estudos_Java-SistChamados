@@ -103,6 +103,7 @@ public class DbDao {
             st.setString(2, Descricao);
             st.setString(3, DataAtendimento);
             st.execute();
+            JOptionPane.showMessageDialog(null, "Atendimento registrado!");
         } catch (Exception e) {
             System.out.println("CLASSE " + e);
         }

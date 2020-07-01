@@ -6,6 +6,7 @@
 package Formularios;
 
 import Classes.DbDao;
+import  Classes.ProcedimentosAuxiliares;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,6 +31,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
 // <editor-fold defaultstate="collapsed" desc="Instanciamento das Classes">                          
     DbDao Dao = new DbDao();
+    ProcedimentosAuxiliares Procedimentos = new ProcedimentosAuxiliares();
 // </editor-fold>
 
     /**
@@ -49,7 +52,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         cbStatus = new javax.swing.JComboBox<>();
         btAddStatus = new javax.swing.JButton();
         btSalvarAtendimento = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        inpDataFechamento = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -65,13 +68,16 @@ public class CadAtendimentos extends javax.swing.JFrame {
         inpSerial = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        inpAtendimentoAnterior = new javax.swing.JTextArea();
+        tbAtendimentos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         impValorOrcamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,8 +87,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Novo Atendimento ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        inpNovoAtendimento.setEditable(false);
-        inpNovoAtendimento.setBackground(new java.awt.Color(240, 240, 240));
         inpNovoAtendimento.setColumns(20);
         inpNovoAtendimento.setRows(5);
         jScrollPane4.setViewportView(inpNovoAtendimento);
@@ -137,13 +141,18 @@ public class CadAtendimentos extends javax.swing.JFrame {
         );
 
         btSalvarAtendimento.setText("Salvar");
+        btSalvarAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarAtendimentoActionPerformed(evt);
+            }
+        });
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            inpDataFechamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inpDataFechamento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Data Retirada");
@@ -168,12 +177,14 @@ public class CadAtendimentos extends javax.swing.JFrame {
             }
         });
 
+        inpCliente.setEditable(false);
         inpCliente.setBackground(new java.awt.Color(233, 233, 233));
 
         inpDefeito.setEditable(false);
         inpDefeito.setBackground(new java.awt.Color(240, 240, 240));
         inpDefeito.setColumns(20);
         inpDefeito.setRows(5);
+        inpDefeito.setFocusable(false);
         jScrollPane1.setViewportView(inpDefeito);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -235,21 +246,23 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), " Histórico ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Data", "Situação", "Setor"
+                "Data", "Atendimento"
             }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
-        inpAtendimentoAnterior.setEditable(false);
-        inpAtendimentoAnterior.setBackground(new java.awt.Color(240, 240, 240));
-        inpAtendimentoAnterior.setColumns(20);
-        inpAtendimentoAnterior.setRows(5);
-        jScrollPane3.setViewportView(inpAtendimentoAnterior);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tbAtendimentos);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -257,17 +270,13 @@ public class CadAtendimentos extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3))
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -290,7 +299,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(btSalvarAtendimento)
                 .addContainerGap())
@@ -310,7 +319,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
                     .addComponent(impValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(btSalvarAtendimento)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -326,10 +335,19 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }//GEN-LAST:event_btAddStatusActionPerformed
 
     private void inpOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpOSFocusLost
-        // TODO add your handling code here:
         String OS = inpOS.getText();
         BuscaOS(OS);
+        PreencheTabela();
+        inpNovoAtendimento.requestFocus();
     }//GEN-LAST:event_inpOSFocusLost
+
+    private void btSalvarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimentoActionPerformed
+        SalvaAtendimento();
+    }//GEN-LAST:event_btSalvarAtendimentoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        tbAtendimentos.getColumnModel().getColumn(1).setPreferredWidth(800);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -371,14 +389,13 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JButton btSalvarAtendimento;
     private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JTextField impValorOrcamento;
-    private javax.swing.JTextArea inpAtendimentoAnterior;
     private javax.swing.JTextField inpCliente;
+    private javax.swing.JFormattedTextField inpDataFechamento;
     private javax.swing.JTextArea inpDefeito;
     private javax.swing.JTextField inpEquipamento;
     private javax.swing.JTextArea inpNovoAtendimento;
     private javax.swing.JTextField inpOS;
     private javax.swing.JTextField inpSerial;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -394,9 +411,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbAtendimentos;
     // End of variables declaration//GEN-END:variables
 //</editor-fold>
 
@@ -449,4 +465,42 @@ public class CadAtendimentos extends javax.swing.JFrame {
         Dao.Desconectar();
     }
 
+    private void SalvaAtendimento(){
+        int OS = Integer.parseInt(inpOS.getText());
+        String Descricao = inpNovoAtendimento.getText();
+        String DataAtual = Procedimentos.DataAtual();
+        try {
+            Dao.CreateAtendimentos(OS, Descricao, DataAtual);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel gravar os dados!");
+        }
+        PreencheTabela();
+        inpNovoAtendimento.setText("");
+    }
+    
+    private void PreencheTabela(){
+        Dao.conectar();
+        Connection conn = Dao.getConn();
+
+        DefaultTableModel tabAtendimentos = (DefaultTableModel) tbAtendimentos.getModel();
+        tabAtendimentos.setNumRows(0);
+        
+        String sql = "select * from atendimentos where CodChamado = " + inpOS.getText();
+        try {
+            PreparedStatement ResultadoAtendimentos = conn.prepareStatement(sql);
+            ResultSet DadosAtendimentos = ResultadoAtendimentos.executeQuery();
+            
+            while(DadosAtendimentos.next()){
+                String[] Linha = {
+                    DadosAtendimentos.getString("DataAtendimento"),
+                    DadosAtendimentos.getString("Descricao")
+                };
+                tabAtendimentos.addRow(Linha);
+                tbAtendimentos.setRowSelectionInterval(0, 0);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Dao.Desconectar();
+    }
 }

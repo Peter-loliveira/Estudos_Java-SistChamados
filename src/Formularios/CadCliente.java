@@ -442,7 +442,7 @@ public class CadCliente extends javax.swing.JFrame {
                 stmt.execute();
                 stmt.close();
                 connection.close();
-                
+
                 ApagaCampoClientes();
 
                 JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!");
@@ -632,7 +632,6 @@ public class CadCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 // </editor-fold>    
-    
     private void PesquisaCliente() {
         Dao.conectar();
         Connection conn = Dao.getConn();
@@ -640,7 +639,7 @@ public class CadCliente extends javax.swing.JFrame {
         DefaultTableModel TabClientes = (DefaultTableModel) jTabela.getModel();
         TabClientes.setNumRows(0);
         try {
-                        String sql = "select * from Clientes";;
+            String sql = "select * from Clientes";
             if (!jTextNome.getText().equals("")) {
                 sql = sql + " where Nome LIKE ? ";
             }
@@ -651,26 +650,24 @@ public class CadCliente extends javax.swing.JFrame {
 
             ResultSet ResultadoClientes = stmt.executeQuery();
             while (ResultadoClientes.next()) {
-            String[] linha = {
-                ResultadoClientes.getString("ID"),
-                ResultadoClientes.getString("Nome"),
-                ResultadoClientes.getString("DataNasc"),
-                ResultadoClientes.getString("Cel"),
-                ResultadoClientes.getString("Endereco"),
-                ResultadoClientes.getString("Genero")
-            };
-            TabClientes.addRow(linha);
+                String[] linha = {
+                    ResultadoClientes.getString("ID"),
+                    ResultadoClientes.getString("Nome"),
+                    ResultadoClientes.getString("DataNasc"),
+                    ResultadoClientes.getString("Cel"),
+                    ResultadoClientes.getString("Endereco"),
+                    ResultadoClientes.getString("Genero")
+                };
+                TabClientes.addRow(linha);
 
 //              Seleciona a primara linha da tabela
-            jTabela.setRowSelectionInterval(0, 0);
+                jTabela.setRowSelectionInterval(0, 0);
             }
         } catch (Exception e) {
         }
-        
 
-        }
-    
-        
+    }
+
     private void PesquisaEquipamentos() {
         Dao.conectar();
         Connection conn = Dao.getConn();

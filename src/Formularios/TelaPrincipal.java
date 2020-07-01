@@ -5,7 +5,7 @@
  */
 package Formularios;
 
-import Excluir.CadEquipamentos;
+
 import Classes.DbDao;
 
 /**
