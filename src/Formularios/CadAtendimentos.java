@@ -330,10 +330,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(cxbFecharChamado)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(lbDataFechamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inpDataFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -426,10 +427,14 @@ public class CadAtendimentos extends javax.swing.JFrame {
         if (cxbFecharChamado.isSelected()) {
             inpDataFechamento.setEnabled(true);
             lbDataFechamento.setEnabled(true);
+            inpDataFechamento.setText(Procedimentos.DataAtual());
+            
             inpDataFechamento.requestFocus();
+            
         } else {
             inpDataFechamento.setEnabled(false);
             lbDataFechamento.setEnabled(false);
+            inpDataFechamento.setText("");
 
         }
     }//GEN-LAST:event_cxbFecharChamadoMouseClicked
@@ -552,7 +557,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "OS nao Localizada!");
         }
 
         Dao.Desconectar();
@@ -568,6 +574,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel gravar os dados!");
         }
         PreencheTabela();
+        
         if (cxbFecharChamado.isSelected()) {
             FechaChamado();
         }
@@ -615,7 +622,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
             UpdateChamado.setString(2, OS);
             UpdateChamado.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Não goi possivel encaminhar a OS para o setor desejado!");
         }
 
         Dao.Desconectar();
@@ -641,8 +648,21 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
     private void FechaChamado() {
         Dao.conectar();
-
-//        String Sql = ""
+        Connection Conn = Dao.getConn();
+        
+        String Data = inpDataFechamento.getText();
+        
+        String sql = "UPDATE chamados SET DataFechamento = " 
+                + "\"" + Data + "\""
+                +" WHERE ID = " + inpOS.getText();
+        
+        try {
+            PreparedStatement InsereDataFechamento = Conn.prepareStatement(sql);
+            InsereDataFechamento.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel inserir a data de Fechamento!");
+        }
+        
         Dao.Desconectar();
 
     }
@@ -661,7 +681,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
             InsereOrcamento = Conn.prepareStatement(sql);
             InsereOrcamento.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Não foi possivel inserir o valor do orçamento na OS!");
         }
 
         Dao.Desconectar();
