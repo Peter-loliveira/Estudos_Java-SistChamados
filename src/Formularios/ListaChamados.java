@@ -45,8 +45,8 @@ public class ListaChamados extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btIrOS = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de Chamados");
@@ -107,16 +107,21 @@ public class ListaChamados extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/IrOs2.png"))); // NOI18N
-        jButton1.setText("Ir ara OS");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btIrOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/IrOs2.png"))); // NOI18N
+        btIrOS.setText("Ir ara OS");
+        btIrOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btIrOSActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
-        jButton2.setText("Voltar");
+        btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,9 +138,9 @@ public class ListaChamados extends javax.swing.JFrame {
                         .addComponent(cbSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btIrOS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(btVoltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,8 +155,8 @@ public class ListaChamados extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btIrOS)
+                    .addComponent(btVoltar))
                 .addContainerGap())
         );
 
@@ -172,16 +177,22 @@ public class ListaChamados extends javax.swing.JFrame {
         ListaOS(String.valueOf(cbSetor.getSelectedIndex()));
     }//GEN-LAST:event_cbSetorItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+    private void btIrOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIrOSActionPerformed
+        //Pega o nr do chamado da linha selecionada
         int LinhaTabelaCliente = tbChamados.getSelectedRow();
         String OS = tbChamados.getValueAt(LinhaTabelaCliente, 0).toString();
         
-        
+        //torna a tela de Atendimento visivel
+        //Com a OS selecionada já preenida e o metodo de buscar os já executado
         Atendimentos.setVisible(true);
         Atendimentos.PreencheOS(OS);
+        
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btIrOSActionPerformed
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,9 +231,9 @@ public class ListaChamados extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btIrOS;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JComboBox<String> cbSetor;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

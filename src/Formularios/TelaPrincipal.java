@@ -449,13 +449,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btCadUsuariosActionPerformed
 
     private void btCadOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadOSActionPerformed
-        // TODO add your handling code here:
         new CadChamado().setVisible(true);
     }//GEN-LAST:event_btCadOSActionPerformed
 
     private void btCadAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadAtendimentosActionPerformed
-        // TODO add your handling code here:
-        new CadAtendimentos().setVisible(true);
+        new ListaChamados().setVisible(true);
     }//GEN-LAST:event_btCadAtendimentosActionPerformed
 
     /**

@@ -2,19 +2,13 @@ CREATE DATABASE `dbchamados`;
 
 USE `dbchamados`;
 
-/*Table structure for table `atendimentos` */
-
 CREATE TABLE `atendimentos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `CodChamado` int(11) NOT NULL,
   `Descricao` text NOT NULL,
   `DataAtendimento` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `atendimentos` */
-
-/*Table structure for table `chamados` */
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `chamados` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,13 +18,9 @@ CREATE TABLE `chamados` (
   `DataAbertura` text NOT NULL,
   `DataFechamento` text DEFAULT NULL,
   `Defeito` text NOT NULL,
-  `Valor` decimal(10,0) DEFAULT NULL,
+  `Valor` float(12,2) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `chamados` */
-
-/*Table structure for table `clientes` */
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `clientes` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -42,10 +32,6 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `clientes` */
-
-/*Table structure for table `equipamentos` */
-
 CREATE TABLE `equipamentos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ClienteID` int(11) NOT NULL,
@@ -54,11 +40,7 @@ CREATE TABLE `equipamentos` (
   `Marca` text NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ClienteID` (`ClienteID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `equipamentos` */
-
-/*Table structure for table `niveisacesso` */
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `niveisacesso` (
   `ID` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
@@ -66,20 +48,12 @@ CREATE TABLE `niveisacesso` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `niveisacesso` */
-
-/*Table structure for table `status` */
-
 CREATE TABLE `status` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Situacao` text NOT NULL,
   `Descricao` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `status` */
-
-/*Table structure for table `tiposequip` */
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tiposequip` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -87,23 +61,13 @@ CREATE TABLE `tiposequip` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `tiposequip` */
-
-/*Table structure for table `users` */
-
 CREATE TABLE `users` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `Nome` text NOT NULL,
   `Nivel` int(11) NOT NULL,
   `Senha` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `users` */
-
-insert  into `users`(`ID`,`Nome`,`Nivel`,`Senha`) values (4,'Peter',1,'1');
-
-/*Table structure for table `usuariologado` */
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `usuariologado` (
   `Nivel` int(11) NOT NULL,
@@ -111,5 +75,4 @@ CREATE TABLE `usuariologado` (
   PRIMARY KEY (`Nivel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `usuariologado` */
-INSERT INTO `usuariologado` VALUES (1, "")
+insert  into `usuariologado`(`Nivel`,`Nome`) values (1,' ');

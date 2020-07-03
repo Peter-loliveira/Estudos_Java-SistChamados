@@ -404,8 +404,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }//GEN-LAST:event_inpOSFocusLost
 
     private void btSalvarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimentoActionPerformed
-        SalvaAtendimento();
         AlterarStatusChamado();
+        SalvaAtendimento();
         if (!inpValorOrcamento.getText().equals("")) {
             InsereValorOrcamento();
         }
@@ -651,8 +651,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         String sql = "UPDATE chamados SET DataFechamento = "
                 + "\"" + Data + "\""
+                + ", status = 4"
                 + " WHERE ID = " + inpOS.getText();
 
+        
         try {
             PreparedStatement InsereDataFechamento = Conn.prepareStatement(sql);
             InsereDataFechamento.execute();
@@ -665,7 +667,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }
 
     private void InsereValorOrcamento() {
-
         Dao.conectar();
         Connection Conn = Dao.getConn();
 
@@ -673,9 +674,12 @@ public class CadAtendimentos extends javax.swing.JFrame {
         String sql = "UPDATE `chamados` SET Valor = "
                 + Valor
                 + " WHERE ID = " + inpOS.getText();
-        PreparedStatement InsereOrcamento;
+
+        //se o chechbos cxbFecharChamado estviver marcado 
+        // o sql acrescenta a opção de fechar chamado mudando status para 4 (fechado)
+//        PreparedStatement InsereOrcamento;
         try {
-            InsereOrcamento = Conn.prepareStatement(sql);
+            PreparedStatement InsereOrcamento = Conn.prepareStatement(sql);
             InsereOrcamento.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Não foi possivel inserir o valor do orçamento na OS!");
