@@ -53,6 +53,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuChamados = new javax.swing.JMenu();
         imChamados = new javax.swing.JMenuItem();
         imAtendimentos = new javax.swing.JMenuItem();
+        imListaChamados = new javax.swing.JMenuItem();
         imSair = new javax.swing.JMenuItem();
         MenuAjuda = new javax.swing.JMenu();
         imSobre = new javax.swing.JMenuItem();
@@ -299,6 +300,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         MenuChamados.add(imAtendimentos);
 
+        imListaChamados.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, 0));
+        imListaChamados.setText("Lista de Chamados");
+        imListaChamados.setEnabled(false);
+        imListaChamados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imListaChamadosActionPerformed(evt);
+            }
+        });
+        MenuChamados.add(imListaChamados);
+
         menuSistema.add(MenuChamados);
 
         imSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -369,6 +380,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 MenuChamados.setEnabled(true);
                 imChamados.setEnabled(true);
                 imAtendimentos.setEnabled(true);
+                imListaChamados.setEnabled(true);
                 
                 btCadUsuarios.setEnabled(true);
                 btCadCliente.setEnabled(true);
@@ -403,6 +415,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 MenuChamados.setEnabled(true);
                 imChamados.setEnabled(true);
                 imAtendimentos.setEnabled(true);
+                imListaChamados.setEnabled(true);
                 
                 btCadUsuarios.setEnabled(false);
                 btCadCliente.setEnabled(false);
@@ -413,6 +426,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             default:
                 break;
         }
+        
         this.setTitle(TituloTela);
     }//GEN-LAST:event_formWindowOpened
 
@@ -455,6 +469,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btCadAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadAtendimentosActionPerformed
         new ListaChamados().setVisible(true);
     }//GEN-LAST:event_btCadAtendimentosActionPerformed
+
+    private void imListaChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imListaChamadosActionPerformed
+        new ListaChamados().setVisible(true);
+    }//GEN-LAST:event_imListaChamadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,6 +520,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imAtendimentos;
     private javax.swing.JMenuItem imChamados;
     private javax.swing.JMenuItem imClientes;
+    private javax.swing.JMenuItem imListaChamados;
     private javax.swing.JMenuItem imSair;
     private javax.swing.JMenuItem imSobre;
     private javax.swing.JMenuItem imUsuarios;
