@@ -55,6 +55,7 @@ public class CadChamado extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de OS (Ordem de Serviço)");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -231,7 +232,7 @@ public class CadChamado extends javax.swing.JFrame {
         int LinhaEquipamentos = tbEquipamentos.getSelectedRow();
         int CodEquipamento = Integer.parseInt(tbEquipamentos.getValueAt(LinhaEquipamentos, 0).toString());
 
-        int Status = 1;
+        int Status = 3;
         String DatAbertura = Procedimentos.DataAtual();
         String Defeito = jDefeito.getText();
 
@@ -246,6 +247,7 @@ public class CadChamado extends javax.swing.JFrame {
         // TODO add your handling code here:
         PesquisaCliente();
         PesquisaEquipamentos();
+        jDefeito.setText("");
     }//GEN-LAST:event_inpNomeClienteKeyReleased
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -350,8 +352,7 @@ public class CadChamado extends javax.swing.JFrame {
 //              Seleciona a primara linha da tabela
                 tbClientes.setRowSelectionInterval(0, 0);
             }
-//            stmt.close();
-//            con.close();
+            con.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e);
         }

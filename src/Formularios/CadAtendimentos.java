@@ -82,6 +82,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         inpDataFechamento = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Atendimentos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -101,7 +102,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Setor:");
 
-        cbSetores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencial", "Financeiro", "Tecnico" }));
+        cbSetores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencial", "Financeiro", "Tecnico", "Fechado" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -137,6 +138,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         btSalvarAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Salvar2.png"))); // NOI18N
         btSalvarAtendimento.setText("Salvar");
+        btSalvarAtendimento.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         btSalvarAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarAtendimentoActionPerformed(evt);
@@ -296,25 +298,32 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
         btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/voltar.png"))); // NOI18N
         btVoltar.setText("Voltar");
+        btVoltar.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarActionPerformed(evt);
             }
         });
 
+        inpValorOrcamento.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         inpValorOrcamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 inpValorOrcamentoFocusLost(evt);
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
 
         cxbFecharChamado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cxbFecharChamado.setText("Fechar Chamado");
         cxbFecharChamado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cxbFecharChamadoMouseClicked(evt);
+            }
+        });
+        cxbFecharChamado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cxbFecharChamadoActionPerformed(evt);
             }
         });
 
@@ -369,11 +378,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 .addComponent(inpValorOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btSalvarAtendimento)
-                .addGap(18, 18, 18)
-                .addComponent(btVoltar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSalvarAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,8 +446,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
 
     private void inpValorOrcamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpValorOrcamentoFocusLost
 
-
     }//GEN-LAST:event_inpValorOrcamentoFocusLost
+
+    private void cxbFecharChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cxbFecharChamadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cxbFecharChamadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -553,6 +564,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
                     inpSerial.setText(Dados.getString("Serial"));
                     inpDefeito.setText(Dados.getString("Defeito"));
                 }
+                Conn.close();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "OS nao Localizada!");
@@ -597,6 +609,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 };
                 tabAtendimentos.addRow(Linha);
                 tbAtendimentos.setRowSelectionInterval(0, 0);
+                conn.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -618,6 +631,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
             UpdateChamado.setString(1, StatusOS);
             UpdateChamado.setString(2, OS);
             UpdateChamado.execute();
+            Conn.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Não goi possivel encaminhar a OS para o setor desejado!");
         }
@@ -629,16 +643,17 @@ public class CadAtendimentos extends javax.swing.JFrame {
 //        Aproveito para informar no cbSetores em que situação está o chamado
         Dao.conectar();
         Connection conn = Dao.getConn();
-        String sql = "select `status` from chamados where ID = " + inpOS.getText();
+        String sql = "select status from chamados where ID = " + inpOS.getText();
         try {
             PreparedStatement ChecaStatusChamado = conn.prepareStatement(sql);
             ResultSet StatosOS = ChecaStatusChamado.executeQuery();
             while (StatosOS.next()) {
                 int StatusChamado = Integer.parseInt(StatosOS.getString("status")) - 1;
                 cbSetores.setSelectedIndex(StatusChamado);
+                conn.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao verificar o Status");
         }
         Dao.Desconectar();
     }
@@ -654,10 +669,10 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 + ", status = 4"
                 + " WHERE ID = " + inpOS.getText();
 
-        
         try {
             PreparedStatement InsereDataFechamento = Conn.prepareStatement(sql);
             InsereDataFechamento.execute();
+            Conn.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel inserir a data de Fechamento!");
         }
@@ -681,6 +696,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         try {
             PreparedStatement InsereOrcamento = Conn.prepareStatement(sql);
             InsereOrcamento.execute();
+            Conn.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Não foi possivel inserir o valor do orçamento na OS!");
         }
@@ -699,8 +715,9 @@ public class CadAtendimentos extends javax.swing.JFrame {
             while (Valor.next()) {
                 inpValorOrcamento.setText(Valor.getString("Valor"));
             }
+            Conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Orçamento não localizado");
         }
 
         Dao.Desconectar();

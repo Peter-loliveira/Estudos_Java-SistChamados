@@ -104,7 +104,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         pnCadClientes.setBackground(new java.awt.Color(255, 255, 0));
 
-        btCadCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/AddUsuario2.png"))); // NOI18N
+        btCadCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/iconfinder_group_add_67294.png"))); // NOI18N
         btCadCliente.setMaximumSize(new java.awt.Dimension(222, 222));
         btCadCliente.setPreferredSize(new java.awt.Dimension(150, 150));
         btCadCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +164,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Atender OS");
+        jLabel2.setText("Listar OS");
 
         btCadAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/AtendimentoOS3.png"))); // NOI18N
         btCadAtendimentos.setMaximumSize(new java.awt.Dimension(250, 250));
@@ -326,6 +326,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenuAjuda.setText("Ajuda");
 
         imSobre.setText("Sobre o Sistema");
+        imSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imSobreActionPerformed(evt);
+            }
+        });
         MenuAjuda.add(imSobre);
 
         jMenuBar1.add(MenuAjuda);
@@ -473,6 +478,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void imListaChamadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imListaChamadosActionPerformed
         new ListaChamados().setVisible(true);
     }//GEN-LAST:event_imListaChamadosActionPerformed
+
+    private void imSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imSobreActionPerformed
+        new Sobre().setVisible(true);
+    }//GEN-LAST:event_imSobreActionPerformed
 
     /**
      * @param args the command line arguments

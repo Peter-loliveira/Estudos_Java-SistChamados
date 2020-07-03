@@ -41,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         btLogar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SC");
+        setTitle("Login");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -63,6 +63,7 @@ public class Login extends javax.swing.JFrame {
         btSair.setBackground(new java.awt.Color(204, 204, 204));
         btSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btSair.setText("Sair");
+        btSair.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
@@ -76,6 +77,7 @@ public class Login extends javax.swing.JFrame {
         btLogar.setBackground(new java.awt.Color(204, 204, 204));
         btLogar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btLogar.setText("Entrar");
+        btLogar.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         btLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLogarActionPerformed(evt);
@@ -148,8 +150,7 @@ public class Login extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         if (Dao.checaTabelaVazia() == 0) {
-            JOptionPane.showMessageDialog(null, "A tabela de Usuários está VAZIA. Crei um Usuário ADM");
-//            CadUsuario novoUsuario = new CadUsuario(); Não necessário. Só apagar após teste
+            JOptionPane.showMessageDialog(null, "O sistema não identificou nenhum usuário cadastrado.\n Você será direcionado para a tela de cadastro de usuarios!");
             AddUsuarios();
         }
     }//GEN-LAST:event_formWindowOpened

@@ -107,6 +107,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sobre o Sistema"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imSobreActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -168,7 +171,6 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" title=" Cadastros ">
-              <Border PropertyName="innerBorder" info="null"/>
               <Font PropertyName="font" name="Tahoma" size="24" style="1"/>
             </TitledBorder>
           </Border>
@@ -290,7 +292,7 @@
             <Component class="javax.swing.JButton" name="btCadCliente">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagens/AddUsuario2.png"/>
+                  <Image iconType="3" name="/imagens/iconfinder_group_add_67294.png"/>
                 </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[222, 222]"/>
@@ -321,7 +323,6 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" title=" Ordem de Servi&#xe7;o ">
-              <Border PropertyName="innerBorder" info="null"/>
               <Font PropertyName="font" name="Tahoma" size="24" style="1"/>
             </TitledBorder>
           </Border>
@@ -389,7 +390,7 @@
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Atender OS"/>
+                <Property name="text" type="java.lang.String" value="Listar OS"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btCadAtendimentos">

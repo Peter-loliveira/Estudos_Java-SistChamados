@@ -83,7 +83,7 @@ public class CadCliente extends javax.swing.JFrame {
         jEnderço1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Clientes e equipamentos");
+        setTitle("Cadastro de Clientes e Equipamentos");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -91,6 +91,7 @@ public class CadCliente extends javax.swing.JFrame {
             }
         });
 
+        jTextTel.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         try {
             jTextTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
@@ -98,18 +99,22 @@ public class CadCliente extends javax.swing.JFrame {
         }
         jTextTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        jTextNome.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         jTextNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextNomeKeyReleased(evt);
             }
         });
 
+        jTextNasc.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         try {
             jTextNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         jTextNasc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jTextEndereço.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
 
         jNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNome.setText("Nome");
@@ -241,14 +246,17 @@ public class CadCliente extends javax.swing.JFrame {
         jEnderço3.setText("Marca");
 
         inpMarcas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inpMarcas.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
 
         inpSerial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inpSerial.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
 
         jEnderço4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jEnderço4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jEnderço4.setText("Serial");
 
         InpTipoEquipamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        InpTipoEquipamento.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 153, 255), null));
         InpTipoEquipamento.setDisabledTextColor(new java.awt.Color(102, 153, 255));
 
         btEditar.setBackground(new java.awt.Color(102, 153, 255));
@@ -303,7 +311,7 @@ public class CadCliente extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -337,8 +345,8 @@ public class CadCliente extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBotaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(235, 235, 235)
+                        .addComponent(jBotaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(210, 210, 210)
                         .addComponent(jBotaoExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btVoltar)
@@ -434,7 +442,7 @@ public class CadCliente extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jEnderço3)
                     .addComponent(jEnderço2)
