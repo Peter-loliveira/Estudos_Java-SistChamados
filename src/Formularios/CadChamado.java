@@ -237,12 +237,9 @@ public class CadChamado extends javax.swing.JFrame {
 
         try {
             Dao.CreateChamados(CodCliente, CodEquipamento, Status, DatAbertura, Defeito);
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Erro");
         }
-
-
     }//GEN-LAST:event_jGerarActionPerformed
 
     private void inpNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpNomeClienteKeyReleased
@@ -253,8 +250,9 @@ public class CadChamado extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-//        tbClientes.getColumnModel().getColumn(0).setPreferredWidth(10);
         tbClientes.getColumnModel().getColumn(1).setPreferredWidth(450);
+        PesquisaCliente();
+        PesquisaEquipamentos();
     }//GEN-LAST:event_formWindowActivated
 
     private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
@@ -372,13 +370,13 @@ public class CadChamado extends javax.swing.JFrame {
             DefaultTableModel TabelaEquipamentos = (DefaultTableModel) tbEquipamentos.getModel();
             TabelaEquipamentos.setNumRows(0);
             while (ResultadoEquipamentos.next()) {
-                String[] linha = {
+                String[] linhaTabela = {
                     ResultadoEquipamentos.getString("ID"),
                     ResultadoEquipamentos.getString("TipoEquip"),
                     ResultadoEquipamentos.getString("Marca"),
                     ResultadoEquipamentos.getString("Serial")
                 };
-                TabelaEquipamentos.addRow(linha);
+                TabelaEquipamentos.addRow(linhaTabela);
             }
             stmt.close();
             con.close();

@@ -29,6 +29,11 @@ public class CadAtendimentos extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void PreencheOS(String OS) {
+        inpOS.setText(OS);
+        getDadosOS();
+    }
+
 // <editor-fold defaultstate="collapsed" desc="Instanciamento das Classes">                          
     DbDao Dao = new DbDao();
     ProcedimentosAuxiliares Procedimentos = new ProcedimentosAuxiliares();
@@ -395,15 +400,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inpOSFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inpOSFocusLost
-//        Verifica se algum valor foi digitado
-        if (!inpOS.getText().equals("")) {
-            String OS = inpOS.getText();
-            BuscaOS(OS);
-            PreencheTabela();
-            VerificaStatusChamado();
-            BuscaValorOrcamento();
-            inpNovoAtendimento.requestFocus();
-        }
+        getDadosOS();
     }//GEN-LAST:event_inpOSFocusLost
 
     private void btSalvarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAtendimentoActionPerformed
@@ -428,9 +425,9 @@ public class CadAtendimentos extends javax.swing.JFrame {
             inpDataFechamento.setEnabled(true);
             lbDataFechamento.setEnabled(true);
             inpDataFechamento.setText(Procedimentos.DataAtual());
-            
+
             inpDataFechamento.requestFocus();
-            
+
         } else {
             inpDataFechamento.setEnabled(false);
             lbDataFechamento.setEnabled(false);
@@ -531,7 +528,8 @@ public class CadAtendimentos extends javax.swing.JFrame {
             while (DadosOS.next()) {
                 //Busca dos daso contidos nas OUTRAS tabelas usando 
                 // as informações  DadosOS inseridas no DadosOS
-                sql = "SELECT clientes.Nome, "
+                sql = "SELECT "
+                        + "clientes.Nome, "
                         + "equipamentos.TipoEquip, "
                         + "equipamentos.Serial, "
                         + "chamados.Defeito "
@@ -557,7 +555,6 @@ public class CadAtendimentos extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(CadAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "OS nao Localizada!");
         }
 
@@ -574,7 +571,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possivel gravar os dados!");
         }
         PreencheTabela();
-        
+
         if (cxbFecharChamado.isSelected()) {
             FechaChamado();
         }
@@ -649,20 +646,20 @@ public class CadAtendimentos extends javax.swing.JFrame {
     private void FechaChamado() {
         Dao.conectar();
         Connection Conn = Dao.getConn();
-        
+
         String Data = inpDataFechamento.getText();
-        
-        String sql = "UPDATE chamados SET DataFechamento = " 
+
+        String sql = "UPDATE chamados SET DataFechamento = "
                 + "\"" + Data + "\""
-                +" WHERE ID = " + inpOS.getText();
-        
+                + " WHERE ID = " + inpOS.getText();
+
         try {
             PreparedStatement InsereDataFechamento = Conn.prepareStatement(sql);
             InsereDataFechamento.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel inserir a data de Fechamento!");
         }
-        
+
         Dao.Desconectar();
 
     }
@@ -695,7 +692,7 @@ public class CadAtendimentos extends javax.swing.JFrame {
         try {
             PreparedStatement BuscaValor = Conn.prepareStatement(Sql);
             ResultSet Valor = BuscaValor.executeQuery();
-            while(Valor.next()){
+            while (Valor.next()) {
                 inpValorOrcamento.setText(Valor.getString("Valor"));
             }
         } catch (SQLException ex) {
@@ -705,4 +702,15 @@ public class CadAtendimentos extends javax.swing.JFrame {
         Dao.Desconectar();
     }
 
+    public void getDadosOS() {
+        //        Verifica se algum valor foi digitado
+        if (!inpOS.getText().equals("")) {
+            String OS = inpOS.getText();
+            BuscaOS(OS);
+            PreencheTabela();
+            VerificaStatusChamado();
+            BuscaValorOrcamento();
+            inpNovoAtendimento.requestFocus();
+        }
+    }
 }

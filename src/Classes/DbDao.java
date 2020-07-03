@@ -131,7 +131,7 @@ public class DbDao {
             st.setString(5, Defeito);
 //            JOptionPane.showMessageDialog(null, sql);
             st.execute();
-            JOptionPane.showMessageDialog(null, "Chamado Criado");
+            JOptionPane.showMessageDialog(null, "Chamado Criado. OS: " + RetornaUltimaOS());
         } catch (Exception e) {
             System.out.println("CLASSE " + e);
         }
@@ -237,12 +237,11 @@ public class DbDao {
     }
 
 // </editor-fold>
-    
 // <editor-fold defaultstate="collapsed" desc="Métodos UPDATE">
     public void GravaUsuarioLogado(String Nivel, String Nome) {
         conectar();
         String sql;
-        
+
         sql = "UPDATE usuariologado SET Nivel =" + Nivel + ", Nome = \"" + Nome + "\"";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -255,18 +254,18 @@ public class DbDao {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void UpdateCliente(String Nome, String DataNasc, String Cel, String Endereco, String Genero, String ID ) {
+
+    public void UpdateCliente(String Nome, String DataNasc, String Cel, String Endereco, String Genero, String ID) {
         conectar();
         String sql;
-        
+
         sql = "UPDATE clientes "
                 + "SET "
-                + "Nome = \"" + Nome + "\"" 
-                + ", DataNasc = \"" + DataNasc + "\"" 
-                + ", Cel = \"" + Cel + "\"" 
-                + ", Endereco = \"" + Endereco + "\"" 
-                + ", Genero = \"" + Genero +"\""
+                + "Nome = \"" + Nome + "\""
+                + ", DataNasc = \"" + DataNasc + "\""
+                + ", Cel = \"" + Cel + "\""
+                + ", Endereco = \"" + Endereco + "\""
+                + ", Genero = \"" + Genero + "\""
                 + " WHERE ID = " + ID;
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -312,6 +311,25 @@ public class DbDao {
         }
     }
 
-// </editor-fold>     
+    public String RetornaUltimaOS() {
+        conectar();
+        String OS = null;
+        String sql = "SELECT MAX(id) FROM chamados";
+        
+        try {
 
+            PreparedStatement VerificaUltimaOS = conn.prepareStatement(sql);
+            ResultSet UltimaOS = VerificaUltimaOS.executeQuery();
+            while (UltimaOS.next()) {
+                OS = UltimaOS.getString("Max(id)");                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Desconectar();
+        return OS;
+    }
+
+// </editor-fold>     
 }
